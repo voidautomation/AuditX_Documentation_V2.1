@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="AuditX ITGC Audit Automation Framework - Documentation Portal">
+    <link rel="icon" href="./img/AVSA_icon.ico" type="image/x-icon">
+    <title>AuditX Documentation Portal</title>
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#0078D4">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="reading-progress" id="readingProgress"></div>
+
+    <!-- Search Modal -->
+    <div class="modal fade" id="searchModal" tabindex="-1">
+        <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
+            <div class="modal-content search-modal-content">
+                <div class="modal-header border-0 pb-0">
+                    <div class="search-input-wrapper w-100">
+                        <i class="bi bi-search search-icon"></i>
+                        <input type="text" class="form-control search-input" id="globalSearchInput" placeholder="Search documentation... (type to filter)" autofocus>
+                        <kbd class="search-kbd">ESC</kbd>
+                    </div>
+                </div>
+                <div class="modal-body pt-2">
+                    <div id="searchResults" class="search-results">
+                        <div class="search-hint text-center py-4">
+                            <i class="bi bi-lightbulb text-warning fs-3 d-block mb-2"></i>
+                            <p class="text-muted mb-1">Search across Technical Documentation and SOP Guide</p>
+                            <small class="text-muted">Try: "RFC", "login", "ITGC01", "password", "screenshot"</small>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer border-0 pt-0">
+                    <div class="d-flex gap-3 text-muted small">
+                        <span><kbd>↑↓</kbd> Navigate</span>
+                        <span><kbd>Enter</kbd> Open</span>
+                        <span><kbd>Esc</kbd> Close</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Glossary Tooltip -->
+    <div class="glossary-tooltip" id="glossaryTooltip" style="display:none;">
+        <div class="glossary-tooltip-header"></div>
+        <div class="glossary-tooltip-body"></div>
+    </div>
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg fixed-top glass-nav" id="mainNav">
+        <div class="container-fluid px-4">
+            <a class="navbar-brand d-flex align-items-center gap-2" href="index.html">
+                <div class="brand-icon"><i class="bi bi-shield-check"></i></div>
+                <div><span class="brand-name">AuditX</span><span class="brand-tag">Documentation</span></div>
+            </a>
+            <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"><i class="bi bi-list fs-4"></i></button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto align-items-center gap-2">
+                    <li class="nav-item"><a class="nav-link active" href="index.html"><i class="bi bi-house-door me-1"></i>Home</a></li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"><i class="bi bi-file-earmark-text me-1"></i>Documentation</a>
+                        <ul class="dropdown-menu dropdown-menu-end glass-dropdown">
+                            <li><a class="dropdown-item" href="technicaldoc.html"><i class="bi bi-gear-wide-connected me-2 text-primary"></i><div><strong>Technical Document</strong><small class="d-block text-muted">Architecture, APIs, Data Flow</small></div></a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="sopdoc.html"><i class="bi bi-list-check me-2 text-success"></i><div><strong>SOP Document</strong><small class="d-block text-muted">Step-by-Step Procedures</small></div></a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item"><a class="nav-link" href="#control-explorer"><i class="bi bi-map me-1"></i>Controls</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#architecture"><i class="bi bi-diagram-3 me-1"></i>Architecture</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#glossary"><i class="bi bi-book me-1"></i>Glossary</a></li>
+                    <li class="nav-item ms-1">
+                        <button class="btn btn-outline-secondary btn-sm rounded-pill search-trigger" id="searchTrigger" title="Search (Ctrl+K)">
+                            <i class="bi bi-search me-1"></i><kbd class="ms-1">⌘K</kbd>
+                        </button>
+                    </li>
+                    <li class="nav-item ms-1">
+                        <button class="btn btn-outline-secondary btn-sm rounded-pill theme-toggle" id="themeToggle" title="Toggle Theme"><i class="bi bi-moon-stars-fill"></i></button>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero -->
+    <section class="hero-section" id="hero">
+        <div class="hero-particles" id="particles"></div>
+        <div class="hero-grid-bg"></div>
+        <div class="container position-relative">
+            <div class="row align-items-center min-vh-100 py-5">
+                <div class="col-lg-7" data-aos="fade-right" data-aos-duration="1000">
+                    <div class="hero-badge mb-4"><span class="badge-dot"></span><span>Enterprise SAP ITGC Audit Automation</span></div>
+                    <h1 class="hero-title"><span class="gradient-text">AuditX</span><br><span class="hero-subtitle-text">Documentation Portal</span></h1>
+                    <p class="hero-description mt-4">Comprehensive technical documentation and standard operating procedures for the AuditX ITGC Audit Automation Framework.</p>
+                    <div class="hero-actions mt-5 d-flex flex-wrap gap-3">
+                        <a href="technicaldoc.html" class="btn btn-hero-primary btn-lg"><i class="bi bi-gear-wide-connected me-2"></i>Technical Doc</a>
+                        <a href="sopdoc.html" class="btn btn-hero-outline btn-lg"><i class="bi bi-list-check me-2"></i>SOP Guide</a>
+                        <button class="btn btn-hero-ghost btn-lg" onclick="exportPageAsPDF('AuditX_Overview')"><i class="bi bi-file-earmark-pdf me-2"></i>Export PDF</button>
+                    </div>
+                    <div class="hero-stats mt-5" data-aos="fade-up" data-aos-delay="300">
+                        <div class="stat-item"><span class="stat-number" data-count="18">0</span><span class="stat-label">ITGC Controls</span></div>
+                        <div class="stat-divider"></div>
+                        <div class="stat-item"><span class="stat-number" data-count="7">0</span><span class="stat-label">Core Modules</span></div>
+                        <div class="stat-divider"></div>
+                        <div class="stat-item"><span class="stat-number" data-count="25">0</span><span class="stat-label">Source Files</span></div>
+                        <div class="stat-divider"></div>
+                        <div class="stat-item"><span class="stat-number" data-count="3">0</span><span class="stat-label">Security Layers</span></div>
+                    </div>
+                </div>
+                <div class="col-lg-5 d-none d-lg-block" data-aos="fade-left" data-aos-duration="1000">
+                    <div class="hero-visual">
+                        <div class="floating-card card-1"><i class="bi bi-shield-lock-fill"></i><span>DPAPI Encryption</span></div>
+                        <div class="floating-card card-2"><i class="bi bi-diagram-3-fill"></i><span>SAP RFC/NCo</span></div>
+                        <div class="floating-card card-3"><i class="bi bi-file-earmark-word-fill"></i><span>Auto Reports</span></div>
+                        <div class="floating-card card-4"><i class="bi bi-database-fill-gear"></i><span>SQLite Store</span></div>
+                        <div class="hero-center-icon"><i class="bi bi-shield-check"></i></div>
+                        <div class="orbit-ring ring-1"></div>
+                        <div class="orbit-ring ring-2"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="hero-wave"><svg viewBox="0 0 1440 120" preserveAspectRatio="none"><path d="M0,60 C360,120 1080,0 1440,60 L1440,120 L0,120 Z" fill="var(--bs-body-bg)"></path></svg></div>
+    </section>
+
+    <!-- Control Explorer -->
+    <section class="section-padding" id="control-explorer">
+        <div class="container">
+            <div class="section-header text-center mb-5" data-aos="fade-up">
+                <span class="section-badge">Control Explorer</span>
+                <h2 class="section-title">Interactive ITGC Control Map</h2>
+                <p class="section-subtitle">Click any control to view SAP transactions, expected outcomes, and audit procedures</p>
+            </div>
+            <div class="control-filter-tabs mb-4 text-center" data-aos="fade-up">
+                <button class="control-filter-btn active" data-filter="all">All Controls</button>
+                <button class="control-filter-btn" data-filter="access">Access Controls</button>
+                <button class="control-filter-btn" data-filter="change">Change Mgmt</button>
+                <button class="control-filter-btn" data-filter="config">Configuration</button>
+            </div>
+            <div class="control-grid" id="controlGrid" data-aos="fade-up">
+                <div class="control-card" data-control="ITGC01" data-category="access">
+                    <div class="control-card-header"><span class="control-id">ITGC01</span><span class="control-status active">Active</span></div>
+                    <h6 class="control-card-title">SAP OSS Enabling Audit</h6>
+                    <div class="control-card-meta"><span><i class="bi bi-terminal me-1"></i><span class="glossary-term" data-term="SUIM">SUIM</span></span><span><i class="bi bi-shield me-1"></i>Access</span></div>
+                    <div class="control-card-detail" style="display:none"><div class="detail-section"><h6><i class="bi bi-info-circle me-1"></i>Description</h6><p>Verifies change documents for SAP OSS user IDs during the reporting period.</p></div><div class="detail-section"><h6><i class="bi bi-terminal me-1"></i>SAP Transaction Path</h6><p><code class="glossary-term" data-term="SUIM">SUIM</code> → Change Documents → For Users</p></div><div class="detail-section"><h6><i class="bi bi-check-circle me-1"></i>Expected Outcomes</h6><div class="outcome-row"><span class="outcome-green"><i class="bi bi-check-circle-fill"></i> Green</span><span>No change documents found</span></div><div class="outcome-row"><span class="outcome-red"><i class="bi bi-x-circle-fill"></i> Red</span><span>Change documents identified</span></div></div><div class="detail-section"><h6><i class="bi bi-gear me-1"></i>Settings</h6><p>OSS ID: <code>My.Settings.ITGC01_OSSID</code></p></div></div>
+                </div>
+                <div class="control-card" data-control="ITGC02" data-category="change">
+                    <div class="control-card-header"><span class="control-id">ITGC02</span><span class="control-status active">Active</span></div>
+                    <h6 class="control-card-title">Client Opening Audit</h6>
+                    <div class="control-card-meta"><span><i class="bi bi-terminal me-1"></i><span class="glossary-term" data-term="SCC4">SCC4</span></span><span><i class="bi bi-arrow-repeat me-1"></i>Change</span></div>
+                    <div class="control-card-detail" style="display:none"><div class="detail-section"><h6><i class="bi bi-info-circle me-1"></i>Description</h6><p>Checks if SAP production client was opened for changes via SCC4 change logs.</p></div><div class="detail-section"><h6><i class="bi bi-check-circle me-1"></i>Expected Outcomes</h6><div class="outcome-row"><span class="outcome-green"><i class="bi bi-check-circle-fill"></i> Green</span><span>No client opening during period</span></div><div class="outcome-row"><span class="outcome-red"><i class="bi bi-x-circle-fill"></i> Red</span><span>Client opening occurred</span></div></div></div>
+                </div>
+                <div class="control-card" data-control="ITGC04" data-category="change">
+                    <div class="control-card-header"><span class="control-id">ITGC04</span><span class="control-status active">Active</span></div>
+                    <h6 class="control-card-title">Critical Transaction Usage</h6>
+                    <div class="control-card-meta"><span><i class="bi bi-terminal me-1"></i><span class="glossary-term" data-term="SE16">SE16</span></span><span><i class="bi bi-arrow-repeat me-1"></i>Change</span></div>
+                    <div class="control-card-detail" style="display:none"><div class="detail-section"><h6><i class="bi bi-info-circle me-1"></i>Description</h6><p>Reviews CDHDR table for critical transaction code usage in production.</p></div><div class="detail-section"><h6><i class="bi bi-gear me-1"></i>Settings</h6><p>T-Code List: <code>My.Settings.ITGC04_TCodeList</code></p></div></div>
+                </div>
+                <div class="control-card" data-control="ITGC06" data-category="access">
+                    <div class="control-card-header"><span class="control-id">ITGC06</span><span class="control-status active">Active</span></div>
+                    <h6 class="control-card-title">Developer Key/Access</h6>
+                    <div class="control-card-meta"><span><i class="bi bi-terminal me-1"></i>SE16, SUIM</span><span><i class="bi bi-shield me-1"></i>Access</span></div>
+                    <div class="control-card-detail" style="display:none"><div class="detail-section"><h6><i class="bi bi-info-circle me-1"></i>Description</h6><p>Checkpoint 1: DEVACCESS table count. Checkpoint 2: Users with S_DEVELOP (DEBUG, ACTVT 02/03).</p></div></div>
+                </div>
+                <div class="control-card" data-control="ITGC07" data-category="access">
+                    <div class="control-card-header"><span class="control-id">ITGC07</span><span class="control-status active">Active</span></div>
+                    <h6 class="control-card-title">SAP_ALL / SAP_NEW Access</h6>
+                    <div class="control-card-meta"><span><i class="bi bi-terminal me-1"></i>SUIM</span><span><i class="bi bi-shield me-1"></i>Access</span></div>
+                    <div class="control-card-detail" style="display:none"><div class="detail-section"><h6><i class="bi bi-info-circle me-1"></i>Description</h6><p>Checkpoint 1: SAP*/DDIC change docs. Checkpoint 2: Dialog/Service users with SAP_ALL or SAP_NEW profiles.</p></div></div>
+                </div>
+                <div class="control-card" data-control="ITGC08" data-category="access">
+                    <div class="control-card-header"><span class="control-id">ITGC08</span><span class="control-status active">Active</span></div>
+                    <h6 class="control-card-title">Table Maintenance Access</h6>
+                    <div class="control-card-meta"><span><i class="bi bi-terminal me-1"></i>SUIM</span><span><i class="bi bi-shield me-1"></i>Access</span></div>
+                </div>
+                <div class="control-card" data-control="ITGC09" data-category="access">
+                    <div class="control-card-header"><span class="control-id">ITGC09</span><span class="control-status active">Active</span></div>
+                    <h6 class="control-card-title">Program Execution Auth</h6>
+                    <div class="control-card-meta"><span><i class="bi bi-terminal me-1"></i>SUIM</span><span><i class="bi bi-shield me-1"></i>Access</span></div>
+                </div>
+                <div class="control-card" data-control="ITGC10" data-category="config">
+                    <div class="control-card-header"><span class="control-id">ITGC10</span><span class="control-status active">Active</span></div>
+                    <h6 class="control-card-title">Security Config (5 Checks)</h6>
+                    <div class="control-card-meta"><span><i class="bi bi-terminal me-1"></i>SUIM</span><span><i class="bi bi-sliders me-1"></i>Config</span></div>
+                    <div class="control-card-detail" style="display:none"><div class="detail-section"><h6><i class="bi bi-info-circle me-1"></i>Description</h6><p>5 checkpoints: Create users, Lock/Unlock, Modify roles, Role assignments, SAP_ALL/SAP_NEW assignment.</p></div></div>
+                </div>
+                <div class="control-card" data-control="ITGC11" data-category="change">
+                    <div class="control-card-header"><span class="control-id">ITGC11</span><span class="control-status active">Active</span></div>
+                    <h6 class="control-card-title">Transport Import</h6>
+                    <div class="control-card-meta"><span><i class="bi bi-terminal me-1"></i>SUIM</span><span><i class="bi bi-arrow-repeat me-1"></i>Change</span></div>
+                </div>
+                <div class="control-card" data-control="ITGC12" data-category="access">
+                    <div class="control-card-header"><span class="control-id">ITGC12</span><span class="control-status active">Active</span></div>
+                    <h6 class="control-card-title">Job Administration (SM37)</h6>
+                    <div class="control-card-meta"><span><i class="bi bi-terminal me-1"></i>SUIM</span><span><i class="bi bi-shield me-1"></i>Access</span></div>
+                </div>
+                <div class="control-card" data-control="ITGC13" data-category="config">
+                    <div class="control-card-header"><span class="control-id">ITGC13</span><span class="control-status active">Active</span></div>
+                    <h6 class="control-card-title">Password Config (RZ10)</h6>
+                    <div class="control-card-meta"><span><i class="bi bi-terminal me-1"></i>SUIM</span><span><i class="bi bi-sliders me-1"></i>Config</span></div>
+                </div>
+                <div class="control-card" data-control="ITGC14" data-category="config">
+                    <div class="control-card-header"><span class="control-id">ITGC14</span><span class="control-status active">Active</span></div>
+                    <h6 class="control-card-title">Default SAP ID Password</h6>
+                    <div class="control-card-meta"><span><i class="bi bi-terminal me-1"></i><span class="glossary-term" data-term="SA38">SA38</span></span><span><i class="bi bi-sliders me-1"></i>Config</span></div>
+                </div>
+                <div class="control-card" data-control="ITGC16" data-category="change">
+                    <div class="control-card-header"><span class="control-id">ITGC16</span><span class="control-status active">Active</span></div>
+                    <h6 class="control-card-title">Standard Program Changes</h6>
+                    <div class="control-card-meta"><span><i class="bi bi-terminal me-1"></i>SE16</span><span><i class="bi bi-arrow-repeat me-1"></i>Change</span></div>
+                </div>
+                <div class="control-card" data-control="ITGC17" data-category="access">
+                    <div class="control-card-header"><span class="control-id">ITGC17</span><span class="control-status active">Active</span></div>
+                    <h6 class="control-card-title">IDOC Modification Auth</h6>
+                    <div class="control-card-meta"><span><i class="bi bi-terminal me-1"></i>SUIM</span><span><i class="bi bi-shield me-1"></i>Access</span></div>
+                </div>
+                <div class="control-card" data-control="ITGC18" data-category="config">
+                    <div class="control-card-header"><span class="control-id">ITGC18</span><span class="control-status active">Active</span></div>
+                    <h6 class="control-card-title">SAP Parameter Review</h6>
+                    <div class="control-card-meta"><span><i class="bi bi-terminal me-1"></i><span class="glossary-term" data-term="RZ11">RZ11</span></span><span><i class="bi bi-sliders me-1"></i>Config</span></div>
+                    <div class="control-card-detail" style="display:none"><div class="detail-section"><h6><i class="bi bi-info-circle me-1"></i>Parameters Checked</h6><p>login/min_password_lng, login/password_expiration_time, login/fails_to_user_lock, login/no_automatic_user_sapstar, rdisp/gui_auto_logout, rsau/enable, sapgui/user_scripting</p></div></div>
+                </div>
+            </div>
+            <div class="control-detail-panel" id="controlDetailPanel" style="display:none" data-aos="fade-up">
+                <div class="detail-panel-header"><div><span class="control-id-large" id="detailControlId"></span><h4 class="mb-0" id="detailControlTitle"></h4></div><button class="btn btn-outline-secondary btn-sm" onclick="closeControlDetail()"><i class="bi bi-x-lg"></i></button></div>
+                <div class="detail-panel-body" id="detailControlBody"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Architecture (Mermaid) -->
+    <section class="section-padding bg-body-tertiary" id="architecture">
+        <div class="container">
+            <div class="section-header text-center mb-5" data-aos="fade-up">
+                <span class="section-badge">Architecture</span>
+                <h2 class="section-title">System Architecture</h2>
+                <p class="section-subtitle">Interactive flowchart powered by Mermaid.js</p>
+            </div>
+            <div class="mermaid-container" data-aos="fade-up">
+                <div class="mermaid">
+graph TB
+    subgraph PL["Presentation Layer"]
+        LF["LoginForm\nWindows Auth"]
+        HD["Home Dashboard\n7 Tabs"]
+        CG["ctrlGeneral\nSettings"]
+        RF["RFCSettingsForm"]
+    end
+    subgraph BL["Business Logic Layer"]
+        IA["ITGC_AUDIT\nOrchestrator"]
+        IC["ITGC01-18\nControl Scripts"]
+        SH["SAPHelper\nRFC Operations"]
+        WR["WordReportGenerator"]
+        AS["AuditStore"]
+    end
+    subgraph DL["Data Layer"]
+        SC["SAPConnection\nNCo Config"]
+        SD["SAPSystemDatabase\nSQLite"]
+        SE["SecurityHelpers\nDPAPI"]
+        LG["Logger"]
+    end
+    subgraph EXT["External Systems"]
+        SAP["SAP System"]
+        FB["Firebase RTDB"]
+        OF["MS Office"]
+    end
+    LF --> HD
+    HD --> IA
+    HD --> SH
+    IA --> IC
+    IC --> SAP
+    SH --> SC
+    SC --> SAP
+    SD --> SE
+    WR --> OF
+    IC --> WR
+    IC --> AS
+    LF -.-> FB
+    classDef pl fill:#e3f2fd,stroke:#1565c0,color:#1565c0
+    classDef bl fill:#fff3e0,stroke:#e65100,color:#e65100
+    classDef dl fill:#e8f5e9,stroke:#2e7d32,color:#2e7d32
+    classDef ext fill:#f3e5f5,stroke:#6a1b9a,color:#6a1b9a
+    class LF,HD,CG,RF pl
+    class IA,IC,SH,WR,AS bl
+    class SC,SD,SE,LG dl
+    class SAP,FB,OF ext
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Video Tutorials -->
+    <section class="section-padding" id="tutorials">
+        <div class="container">
+            <div class="section-header text-center mb-5" data-aos="fade-up">
+                <span class="section-badge">Tutorials</span>
+                <h2 class="section-title">Video Walkthroughs</h2>
+            </div>
+            <div class="row g-4">
+                <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="100">
+                    <div class="video-card">
+                        <div class="video-thumbnail" data-video-id="login">
+                            <div class="video-play-btn"><i class="bi bi-play-fill"></i></div>
+                            <img src="img/placeholder-login.png" alt="Login Tutorial" class="img-fluid">
+                            <span class="video-duration">00:25</span>
+                        </div>
+                        <div class="video-info"><h6>Getting Started: Login & Setup</h6><p class="small text-muted mb-0">Windows authentication, license validation, initial configuration</p></div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="200">
+                    <div class="video-card">
+                        <div class="video-thumbnail" data-video-id="execute">
+                            <div class="video-play-btn"><i class="bi bi-play-fill"></i></div>
+                            <img src="img/placeholder-execute.png" alt="Execute Tutorial" class="img-fluid">
+                            <span class="video-duration">5:47</span>
+                        </div>
+                        <div class="video-info"><h6>Executing ITGC Controls</h6><p class="small text-muted mb-0">Running individual and batch audits with evidence capture</p></div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="300">
+                    <div class="video-card">
+                        <div class="video-thumbnail" data-video-id="housekeeping">
+                            <div class="video-play-btn"><i class="bi bi-play-fill"></i></div>
+                            <img src="img/placeholder-housekeeping.png" alt="Housekeeping Tutorial" class="img-fluid">
+                            <span class="video-duration">8:12</span>
+                        </div>
+                        <div class="video-info"><h6>User Inactivity Analysis</h6><p class="small text-muted mb-0">RFC setup, single and multi-system analysis, user management</p></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Glossary -->
+    <section class="section-padding bg-body-tertiary" id="glossary">
+        <div class="container">
+            <div class="section-header text-center mb-5" data-aos="fade-up">
+                <span class="section-badge">Glossary</span>
+                <h2 class="section-title">SAP & Technical Glossary</h2>
+                <p class="section-subtitle">Hover over <span class="glossary-term" data-term="SUIM">highlighted terms</span> for instant definitions</p>
+            </div>
+            <div class="row g-3" data-aos="fade-up">
+                <div class="col-md-6 col-lg-4"><div class="glossary-card"><code class="glossary-term-code">SUIM</code><p class="mb-0 small">User Information System — Central transaction for analyzing SAP user authorizations and change documents.</p></div></div>
+                <div class="col-md-6 col-lg-4"><div class="glossary-card"><code class="glossary-term-code">RFC</code><p class="mb-0 small">Remote Function Call — SAP protocol for calling functions on remote systems via SAP NCo connector.</p></div></div>
+                <div class="col-md-6 col-lg-4"><div class="glossary-card"><code class="glossary-term-code">BAPI</code><p class="mb-0 small">Business Application Programming Interface — Standardized SAP functions (BAPI_USER_LOCK, BAPI_USER_CHANGE).</p></div></div>
+                <div class="col-md-6 col-lg-4"><div class="glossary-card"><code class="glossary-term-code">DPAPI</code><p class="mb-0 small">Data Protection API — Windows encryption scoped to CurrentUser. Used for SAP password storage.</p></div></div>
+                <div class="col-md-6 col-lg-4"><div class="glossary-card"><code class="glossary-term-code">NCo</code><p class="mb-0 small">SAP .NET Connector — Library (sapnco.dll) enabling .NET applications to communicate with SAP.</p></div></div>
+                <div class="col-md-6 col-lg-4"><div class="glossary-card"><code class="glossary-term-code">USR02</code><p class="mb-0 small">SAP table: username, creation date, validity, last login, user type, lock status, password change date.</p></div></div>
+                <div class="col-md-6 col-lg-4"><div class="glossary-card"><code class="glossary-term-code">SCC4</code><p class="mb-0 small">Client Administration — SAP transaction for managing client settings and change policies.</p></div></div>
+                <div class="col-md-6 col-lg-4"><div class="glossary-card"><code class="glossary-term-code">SE16</code><p class="mb-0 small">Data Browser — SAP transaction for viewing table contents (CDHDR, DEVACCESS, TRDIR).</p></div></div>
+                <div class="col-md-6 col-lg-4"><div class="glossary-card"><code class="glossary-term-code">RZ11</code><p class="mb-0 small">Profile Parameter Maintenance — View/change system parameters (password, scripting, audit).</p></div></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="section-padding cta-section">
+        <div class="container">
+            <div class="cta-card" data-aos="zoom-in">
+                <div class="row align-items-center">
+                    <div class="col-lg-8">
+                        <h3 class="text-white mb-3">Ready to Explore Full Documentation?</h3>
+                        <p class="text-white-50">Dive into technical architecture and step-by-step procedures.</p>
+                    </div>
+                    <div class="col-lg-4 text-lg-end mt-3 mt-lg-0">
+                        <div class="d-flex flex-wrap gap-2 justify-content-lg-end">
+                            <a href="technicaldoc.html" class="btn btn-light btn-lg"><i class="bi bi-gear-wide-connected me-2"></i>Technical Doc</a>
+                            <a href="sopdoc.html" class="btn btn-outline-light btn-lg"><i class="bi bi-list-check me-2"></i>SOP Guide</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer-section">
+        <div class="container">
+            <div class="row align-items-center py-4">
+                <div class="col-md-6"><div class="d-flex align-items-center gap-2"><div class="brand-icon-sm"><i class="bi bi-shield-check"></i></div><div><strong>AuditX</strong> Documentation Portal<br><small class="text-muted">&copy; 2025 Void Automation.</small></div></div></div>
+                <div class="col-md-6 text-md-end mt-3 mt-md-0">
+                    <a href="index.html" class="footer-link">Home</a>
+                    <a href="technicaldoc.html" class="footer-link">Technical Doc</a>
+                    <a href="sopdoc.html" class="footer-link">SOP</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <button class="scroll-top-btn" id="scrollTopBtn"><i class="bi bi-arrow-up-short"></i></button>
+
+    <div class="modal fade" id="pdfModal" tabindex="-1"><div class="modal-dialog modal-dialog-centered modal-sm"><div class="modal-content text-center p-4"><div class="spinner-border text-primary mx-auto mb-3"></div><h6>Generating PDF...</h6><p class="text-muted small mb-0">Please wait.</p></div></div></div>
+    <div class="modal fade" id="videoModal" tabindex="-1"><div class="modal-dialog modal-lg modal-dialog-centered"><div class="modal-content bg-dark"><div class="modal-header border-0"><h6 class="modal-title text-white" id="videoModalTitle">Video</h6><button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button></div><div class="modal-body p-0"><div class="text-center py-5"><i class="bi bi-camera-video text-muted" style="font-size:4rem"></i><p class="text-muted mt-3">Video content will be embedded here.</p></div></div></div></div></div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/fuse.js@7.0.0/dist/fuse.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

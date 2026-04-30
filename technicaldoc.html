@@ -1,0 +1,820 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="./img/AVSA_icon.ico" type="image/x-icon">
+    <title>AuditX - Technical Documentation</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- ========== NAVBAR ========== -->
+    <nav class="navbar navbar-expand-lg fixed-top glass-nav" id="mainNav">
+        <div class="container-fluid px-4">
+            <a class="navbar-brand d-flex align-items-center gap-2" href="index.html">
+                <div class="brand-icon"><i class="bi bi-shield-check"></i></div>
+                <div>
+                    <span class="brand-name">AuditX</span>
+                    <span class="brand-tag">Technical Doc</span>
+                </div>
+            </a>
+            <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <i class="bi bi-list fs-4"></i>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto align-items-center gap-2">
+                    <li class="nav-item"><a class="nav-link" href="index.html"><i class="bi bi-house-door me-1"></i>Home</a></li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle active" href="#" role="button" data-bs-toggle="dropdown">
+                            <i class="bi bi-file-earmark-text me-1"></i>Documentation
+                        </a>
+                        <ul class="dropdown-menu glass-dropdown">
+                            <li><a class="dropdown-item active" href="technicaldoc.html"><i class="bi bi-gear-wide-connected me-2 text-primary"></i><div><strong>Technical Document</strong><small class="d-block text-muted">Architecture, APIs, Data Flow</small></div></a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="sopdoc.html"><i class="bi bi-list-check me-2 text-success"></i><div><strong>SOP Document</strong><small class="d-block text-muted">Step-by-Step Procedures</small></div></a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item ms-2">
+                        <button class="btn btn-outline-secondary btn-sm rounded-pill theme-toggle" id="themeToggle" title="Toggle Theme">
+                            <i class="bi bi-moon-stars-fill"></i>
+                        </button>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- ========== DOC HEADER ========== -->
+    <section class="doc-hero">
+        <div class="container">
+            <div class="row align-items-center py-5">
+                <div class="col-lg-8" data-aos="fade-right">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb breadcrumb-custom">
+                            <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                            <li class="breadcrumb-item active">Technical Documentation</li>
+                        </ol>
+                    </nav>
+                    <h1 class="doc-title">
+                        <i class="bi bi-gear-wide-connected me-3 text-primary"></i>
+                        Technical Documentation
+                    </h1>
+                    <p class="doc-subtitle mt-3">
+                        Complete technical reference covering system architecture, data models, 
+                        security implementation, integration patterns, and deployment specifications.
+                    </p>
+                    <div class="doc-meta mt-4">
+                        <span class="doc-meta-item"><i class="bi bi-calendar3 me-1"></i>Last Updated: July 2025</span>
+                        <span class="doc-meta-item"><i class="bi bi-code-slash me-1"></i>Version 2.0</span>
+                        <span class="doc-meta-item"><i class="bi bi-file-earmark-text me-1"></i>~45 Pages</span>
+                    </div>
+                </div>
+                <div class="col-lg-4 text-end" data-aos="fade-left">
+                    <button class="btn btn-primary btn-lg" onclick="exportPageAsPDF('AuditX_Technical_Document')">
+                        <i class="bi bi-file-earmark-pdf me-2"></i>Export as PDF
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== CONTENT AREA ========== -->
+    <div class="container-fluid">
+        <div class="row">
+            <!-- Sidebar TOC -->
+            <div class="col-lg-3 d-none d-lg-block">
+                <nav class="doc-sidebar" id="docSidebar">
+                    <div class="sidebar-header">
+                        <i class="bi bi-list-nested me-2"></i>Table of Contents
+                    </div>
+                    <ul class="sidebar-nav" id="sidebarNav">
+                        <li><a href="#sec-1" class="sidebar-link active">1. Introduction</a></li>
+                        <li><a href="#sec-2" class="sidebar-link">2. System Architecture</a>
+                            <ul>
+                                <li><a href="#sec-2-1" class="sidebar-link">2.1 High-Level Overview</a></li>
+                                <li><a href="#sec-2-2" class="sidebar-link">2.2 Component Diagram</a></li>
+                                <li><a href="#sec-2-3" class="sidebar-link">2.3 Technology Stack</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="#sec-3" class="sidebar-link">3. Authentication & Security</a>
+                            <ul>
+                                <li><a href="#sec-3-1" class="sidebar-link">3.1 Login Flow</a></li>
+                                <li><a href="#sec-3-2" class="sidebar-link">3.2 License Validation</a></li>
+                                <li><a href="#sec-3-3" class="sidebar-link">3.3 DPAPI Encryption</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="#sec-4" class="sidebar-link">4. SAP Integration</a>
+                            <ul>
+                                <li><a href="#sec-4-1" class="sidebar-link">4.1 GUI Scripting</a></li>
+                                <li><a href="#sec-4-2" class="sidebar-link">4.2 RFC/NCo Layer</a></li>
+                                <li><a href="#sec-4-3" class="sidebar-link">4.3 ITGC Controls Map</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="#sec-5" class="sidebar-link">5. Data Model</a></li>
+                        <li><a href="#sec-6" class="sidebar-link">6. Reporting Engine</a></li>
+                        <li><a href="#sec-7" class="sidebar-link">7. Error Handling & Logging</a></li>
+                        <li><a href="#sec-8" class="sidebar-link">8. Deployment Guide</a></li>
+                    </ul>
+                </nav>
+            </div>
+
+            <!-- Main Content -->
+            <div class="col-lg-9" id="printableArea">
+                <div class="doc-content">
+
+                    <!-- SECTION 1: Introduction -->
+                    <section id="sec-1" class="doc-section" data-aos="fade-up">
+                        <div class="section-number">01</div>
+                        <h2 class="doc-section-title">Introduction</h2>
+
+                        <div class="doc-info-box info-box-blue">
+                            <div class="info-box-icon"><i class="bi bi-info-circle-fill"></i></div>
+                            <div>
+                                <h6>Document Purpose</h6>
+                                <p class="mb-0">This technical document provides a comprehensive reference for developers, auditors, and system administrators responsible for maintaining and extending the AuditX application.</p>
+                            </div>
+                        </div>
+
+                        <h4 class="mt-4">1.1 Product Overview</h4>
+                        <p>
+                            <strong>AuditX</strong> is a Windows desktop application developed in <strong>VB.NET (.NET Framework 4.8)</strong> 
+                            designed to automate IT General Controls (ITGC) auditing for SAP ERP systems. The application provides:
+                        </p>
+                        <ul class="doc-list">
+                            <li><strong>Automated SAP GUI scripting</strong> for 18 ITGC control procedures</li>
+                            <li><strong>RFC-based user inactivity analysis</strong> via SAP .NET Connector (NCo)</li>
+                            <li><strong>Automated evidence collection</strong> with screenshot capture and Word report generation</li>
+                            <li><strong>Centralized configuration management</strong> with encrypted credential storage</li>
+                            <li><strong>Multi-system analysis</strong> for cross-system user comparison</li>
+                        </ul>
+
+                        <h4 class="mt-4">1.2 Intended Audience</h4>
+                        <div class="row g-3">
+                            <div class="col-md-4">
+                                <div class="audience-card">
+                                    <i class="bi bi-code-square text-primary"></i>
+                                    <h6>Developers</h6>
+                                    <p class="small text-muted mb-0">Extending controls, fixing bugs, adding features</p>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="audience-card">
+                                    <i class="bi bi-clipboard2-check text-success"></i>
+                                    <h6>IT Auditors</h6>
+                                    <p class="small text-muted mb-0">Understanding automated procedures and outputs</p>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="audience-card">
+                                    <i class="bi bi-gear text-warning"></i>
+                                    <h6>Sys Admins</h6>
+                                    <p class="small text-muted mb-0">Deployment, configuration, troubleshooting</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <h4 class="mt-4">1.3 System Requirements</h4>
+                        <div class="table-responsive">
+                            <table class="table table-bordered doc-table">
+                                <thead><tr><th width="35%">Requirement</th><th>Specification</th></tr></thead>
+                                <tbody>
+                                    <tr><td><i class="bi bi-pc-display me-2"></i>Operating System</td><td>Windows 10/11 (64-bit)</td></tr>
+                                    <tr><td><i class="bi bi-gear me-2"></i>Runtime</td><td>.NET Framework 4.8</td></tr>
+                                    <tr><td><i class="bi bi-memory me-2"></i>RAM</td><td>4 GB minimum (8 GB recommended)</td></tr>
+                                    <tr><td><i class="bi bi-hdd me-2"></i>Disk Space</td><td>200 MB + report storage</td></tr>
+                                    <tr><td><i class="bi bi-app-indicator me-2"></i>SAP GUI</td><td>SAP GUI for Windows 7.70+ with scripting enabled</td></tr>
+                                    <tr><td><i class="bi bi-plug me-2"></i>SAP NCo</td><td>sapnco.dll + sapnco_utils.dll (3.0+)</td></tr>
+                                    <tr><td><i class="bi bi-file-earmark-word me-2"></i>MS Office</td><td>Microsoft Office 2016+ (Word & Excel Interop)</td></tr>
+                                    <tr><td><i class="bi bi-globe me-2"></i>Network</td><td>Access to SAP servers + Firebase RTDB (license)</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </section>
+
+                    <!-- SECTION 2: System Architecture -->
+                    <section id="sec-2" class="doc-section" data-aos="fade-up">
+                        <div class="section-number">02</div>
+                        <h2 class="doc-section-title">System Architecture</h2>
+
+                        <div id="sec-2-1">
+                            <h4>2.1 High-Level Overview</h4>
+                            <p>AuditX follows a <strong>layered architecture pattern</strong> with clear separation of concerns:</p>
+
+                            <!-- Animated 3-Layer Architecture -->
+                            <div class="arch-layers-diagram my-4">
+                                <div class="arch-layer layer-presentation animate-layer" data-aos="fade-right">
+                                    <div class="layer-header">
+                                        <i class="bi bi-display"></i>
+                                        <span>Presentation Layer</span>
+                                    </div>
+                                    <div class="layer-body">
+                                        <div class="layer-item">LoginForm</div>
+                                        <div class="layer-item">Home (7 Tabs)</div>
+                                        <div class="layer-item">ctrlGeneral</div>
+                                        <div class="layer-item">RFCSettingsForm</div>
+                                        <div class="layer-item">MultiSystemSelectionForm</div>
+                                        <div class="layer-item">LoadingForm</div>
+                                    </div>
+                                </div>
+
+                                <div class="arch-arrow" data-aos="fade-up"><i class="bi bi-arrow-down-short"></i></div>
+
+                                <div class="arch-layer layer-business animate-layer" data-aos="fade-left">
+                                    <div class="layer-header">
+                                        <i class="bi bi-cpu"></i>
+                                        <span>Business Logic Layer</span>
+                                    </div>
+                                    <div class="layer-body">
+                                        <div class="layer-item">ITGC_AUDIT (Orchestrator)</div>
+                                        <div class="layer-item">ITGC01–ITGC18 (Control Scripts)</div>
+                                        <div class="layer-item">SAPHelper (RFC Operations)</div>
+                                        <div class="layer-item">WordReportGenerator</div>
+                                        <div class="layer-item">AuditStore (CSV CRUD)</div>
+                                        <div class="layer-item">CertificateManager</div>
+                                    </div>
+                                </div>
+
+                                <div class="arch-arrow" data-aos="fade-up"><i class="bi bi-arrow-down-short"></i></div>
+
+                                <div class="arch-layer layer-data animate-layer" data-aos="fade-right">
+                                    <div class="layer-header">
+                                        <i class="bi bi-database"></i>
+                                        <span>Data & Integration Layer</span>
+                                    </div>
+                                    <div class="layer-body">
+                                        <div class="layer-item">SAPConnection (NCo Config)</div>
+                                        <div class="layer-item">SAPSystemDatabase (SQLite)</div>
+                                        <div class="layer-item">SecurityHelpers (DPAPI)</div>
+                                        <div class="layer-item">Logger (File I/O)</div>
+                                        <div class="layer-item">ITGCControlMetadataStore (XML)</div>
+                                        <div class="layer-item">FileUtils / EnsureFolderPath</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div id="sec-2-2" class="mt-5">
+                            <h4>2.2 Component Interaction Diagram</h4>
+
+                            <!-- Animated Data Flow -->
+                            <div class="data-flow-diagram my-4">
+                                <div class="flow-row">
+                                    <div class="flow-box flow-user animate-pulse-border">
+                                        <i class="bi bi-person-fill"></i>
+                                        <span>User / Auditor</span>
+                                    </div>
+                                    <div class="flow-arrow-right"><i class="bi bi-arrow-right"></i></div>
+                                    <div class="flow-box flow-app">
+                                        <i class="bi bi-app-indicator"></i>
+                                        <span>LoginForm</span>
+                                        <small>CredUI + DPAPI</small>
+                                    </div>
+                                    <div class="flow-arrow-right"><i class="bi bi-arrow-right"></i></div>
+                                    <div class="flow-box flow-app">
+                                        <i class="bi bi-shield-check"></i>
+                                        <span>CertificateManager</span>
+                                        <small>AES + Firebase</small>
+                                    </div>
+                                </div>
+
+                                <div class="flow-arrow-down-center my-2"><i class="bi bi-arrow-down"></i></div>
+
+                                <div class="flow-row">
+                                    <div class="flow-box flow-main animate-glow">
+                                        <i class="bi bi-layout-text-window-reverse"></i>
+                                        <span>Home Dashboard</span>
+                                        <small>7 Tabs / Main UI</small>
+                                    </div>
+                                </div>
+
+                                <div class="flow-branch my-3">
+                                    <div class="flow-arrow-down"><i class="bi bi-arrow-down"></i></div>
+                                    <div class="flow-arrow-down"><i class="bi bi-arrow-down"></i></div>
+                                    <div class="flow-arrow-down"><i class="bi bi-arrow-down"></i></div>
+                                    <div class="flow-arrow-down"><i class="bi bi-arrow-down"></i></div>
+                                </div>
+
+                                <div class="flow-row flow-bottom">
+                                    <div class="flow-box flow-ext">
+                                        <i class="bi bi-display"></i>
+                                        <span>SAP GUI</span>
+                                        <small>COM Scripting</small>
+                                    </div>
+                                    <div class="flow-box flow-ext">
+                                        <i class="bi bi-hdd-network"></i>
+                                        <span>SAP RFC</span>
+                                        <small>NCo Connector</small>
+                                    </div>
+                                    <div class="flow-box flow-ext">
+                                        <i class="bi bi-database"></i>
+                                        <span>SQLite</span>
+                                        <small>Local DB</small>
+                                    </div>
+                                    <div class="flow-box flow-ext">
+                                        <i class="bi bi-file-earmark-word"></i>
+                                        <span>Office</span>
+                                        <small>Word / Excel</small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div id="sec-2-3" class="mt-5">
+                            <h4>2.3 Technology Stack Details</h4>
+                            <div class="row g-3">
+                                <div class="col-md-6">
+                                    <div class="tech-detail-card">
+                                        <h6><i class="bi bi-layers me-2 text-primary"></i>Core Framework</h6>
+                                        <ul class="mb-0">
+                                            <li><strong>Language:</strong> VB.NET (Visual Basic .NET)</li>
+                                            <li><strong>Framework:</strong> .NET Framework 4.8</li>
+                                            <li><strong>UI:</strong> Windows Forms (WinForms)</li>
+                                            <li><strong>Build:</strong> MSBuild / Visual Studio 2022</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="tech-detail-card">
+                                        <h6><i class="bi bi-plug me-2 text-success"></i>SAP Integration</h6>
+                                        <ul class="mb-0">
+                                            <li><strong>GUI:</strong> SAP GUI COM Object Model</li>
+                                            <li><strong>RFC:</strong> SAP .NET Connector 3.0 (NCo)</li>
+                                            <li><strong>APIs:</strong> RFC_READ_TABLE, BAPI_USER_*</li>
+                                            <li><strong>DLLs:</strong> sapnco.dll, sapnco_utils.dll</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="tech-detail-card">
+                                        <h6><i class="bi bi-shield-lock me-2 text-danger"></i>Security</h6>
+                                        <ul class="mb-0">
+                                            <li><strong>Auth:</strong> Windows CredUI (LogonUser API)</li>
+                                            <li><strong>Encryption:</strong> DPAPI (ProtectedData)</li>
+                                            <li><strong>License:</strong> AES-256 + SHA256 + Firebase</li>
+                                            <li><strong>Scope:</strong> CurrentUser / Machine-bound</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="tech-detail-card">
+                                        <h6><i class="bi bi-hdd me-2 text-info"></i>Storage & Output</h6>
+                                        <ul class="mb-0">
+                                            <li><strong>Database:</strong> SQLite (System.Data.SQLite)</li>
+                                            <li><strong>Config:</strong> XML (ITGCControls.xml)</li>
+                                            <li><strong>Reports:</strong> Word / Excel (Office Interop)</li>
+                                            <li><strong>Logs:</strong> Daily text files (C:\Void\Logs)</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- SECTION 3: Authentication & Security -->
+                    <section id="sec-3" class="doc-section" data-aos="fade-up">
+                        <div class="section-number">03</div>
+                        <h2 class="doc-section-title">Authentication & Security</h2>
+
+                        <div id="sec-3-1">
+                            <h4>3.1 Login Flow</h4>
+                            <p>AuditX uses a multi-layer authentication approach:</p>
+
+                            <!-- Animated Login Flow -->
+                            <div class="process-flow my-4">
+                                <div class="process-step" data-aos="fade-right" data-aos-delay="0">
+                                    <div class="step-circle">1</div>
+                                    <div class="step-content">
+                                        <h6>Windows Credential Dialog</h6>
+                                        <p class="small mb-0">CredUIPromptForCredentialsW displays native Windows login. Auto-fills current domain\username.</p>
+                                        <code class="small">WindowsAuthHelper.Authenticate()</code>
+                                    </div>
+                                </div>
+                                <div class="process-connector"></div>
+                                <div class="process-step" data-aos="fade-right" data-aos-delay="200">
+                                    <div class="step-circle">2</div>
+                                    <div class="step-content">
+                                        <h6>LogonUser API Validation</h6>
+                                        <p class="small mb-0">Win32 LogonUser validates credentials against Active Directory / local SAM.</p>
+                                        <code class="small">LOGON32_LOGON_INTERACTIVE</code>
+                                    </div>
+                                </div>
+                                <div class="process-connector"></div>
+                                <div class="process-step" data-aos="fade-right" data-aos-delay="400">
+                                    <div class="step-circle">3</div>
+                                    <div class="step-content">
+                                        <h6>License Certificate Check</h6>
+                                        <p class="small mb-0">Reads license.cert → AES-256 decrypt → Parse pipe-delimited fields → SHA256 signature verify.</p>
+                                        <code class="small">CertificateManager.ValidateCertificate()</code>
+                                    </div>
+                                </div>
+                                <div class="process-connector"></div>
+                                <div class="process-step" data-aos="fade-right" data-aos-delay="600">
+                                    <div class="step-circle">4</div>
+                                    <div class="step-content">
+                                        <h6>Firebase Expiry Validation</h6>
+                                        <p class="small mb-0">REST GET to Firebase RTDB verifies license exists and hasn't expired.</p>
+                                        <code class="small">GET /licensed_users/{cid}.json</code>
+                                    </div>
+                                </div>
+                                <div class="process-connector"></div>
+                                <div class="process-step step-success" data-aos="fade-right" data-aos-delay="800">
+                                    <div class="step-circle"><i class="bi bi-check-lg"></i></div>
+                                    <div class="step-content">
+                                        <h6>Access Granted</h6>
+                                        <p class="small mb-0">User data passed to Home form. LoginForm hidden, Home.Show() activates dashboard.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div id="sec-3-2" class="mt-5">
+                            <h4>3.2 License Certificate Structure</h4>
+                            <div class="code-block">
+                                <div class="code-header">
+                                    <span>license.cert (after AES decryption)</span>
+                                    <button class="btn btn-sm btn-outline-light" onclick="copyCode(this)"><i class="bi bi-clipboard"></i></button>
+                                </div>
+                                <pre><code>CID|DOMAIN\Username|FullName|email@company.com|IssueDate|ExpiryDate|SHA256Signature
+
+Fields:
+  [0] CID            → Unique client/license identifier
+  [1] WindowsID      → DOMAIN\Username (machine-bound)
+  [2] Full Name      → Display name
+  [3] Email          → Registered email
+  [4] Issue Date     → Certificate creation date
+  [5] Expiry Date    → Local expiry (secondary check)
+  [6] Signature      → SHA256(CID + WindowsID + Expiry + FullName + Email + Key)</code></pre>
+                            </div>
+                        </div>
+
+                        <div id="sec-3-3" class="mt-5">
+                            <h4>3.3 DPAPI Password Encryption</h4>
+                            <p>SAP RFC credentials are encrypted using Windows Data Protection API (DPAPI):</p>
+
+                            <div class="security-flow my-4">
+                                <div class="sec-flow-item">
+                                    <div class="sec-icon bg-primary"><i class="bi bi-key"></i></div>
+                                    <div>
+                                        <h6>Encrypt (On Save)</h6>
+                                        <code>ProtectedData.Protect(plainBytes, entropy, DataProtectionScope.CurrentUser)</code>
+                                        <p class="small text-muted mt-1 mb-0">Result stored as Base64 string in SQLite</p>
+                                    </div>
+                                </div>
+                                <div class="sec-flow-arrow"><i class="bi bi-arrow-right"></i></div>
+                                <div class="sec-flow-item">
+                                    <div class="sec-icon bg-success"><i class="bi bi-database"></i></div>
+                                    <div>
+                                        <h6>Store</h6>
+                                        <code>sap_systems.db → Password column (Base64)</code>
+                                        <p class="small text-muted mt-1 mb-0">Machine + user bound, cannot be copied</p>
+                                    </div>
+                                </div>
+                                <div class="sec-flow-arrow"><i class="bi bi-arrow-right"></i></div>
+                                <div class="sec-flow-item">
+                                    <div class="sec-icon bg-warning"><i class="bi bi-unlock"></i></div>
+                                    <div>
+                                        <h6>Decrypt (On Load)</h6>
+                                        <code>ProtectedData.Unprotect(protectedBytes, entropy, CurrentUser)</code>
+                                        <p class="small text-muted mt-1 mb-0">Falls back to plain text if decryption fails</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="doc-info-box info-box-yellow">
+                                <div class="info-box-icon"><i class="bi bi-exclamation-triangle-fill"></i></div>
+                                <div>
+                                    <h6>Security Note</h6>
+                                    <p class="mb-0">DPAPI encryption is scoped to <code>CurrentUser</code>. Passwords encrypted on one machine/user cannot be decrypted on another. The entropy string <code>"HouseKeeperEntropy_v1"</code> adds an additional layer of application-specific protection.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- SECTION 4: SAP Integration -->
+                    <section id="sec-4" class="doc-section" data-aos="fade-up">
+                        <div class="section-number">04</div>
+                        <h2 class="doc-section-title">SAP Integration</h2>
+
+                        <div id="sec-4-1">
+                            <h4>4.1 SAP GUI Scripting Engine</h4>
+                            <p>The application connects to SAP GUI via COM automation:</p>
+
+                            <div class="code-block">
+                                <div class="code-header"><span>SAP GUI Connection Flow (ITGC_AUDIT.vb)</span></div>
+                                <pre><code>' 1. Launch SAP Logon
+Process.Start(My.Settings.SAPLogonPath)
+Thread.Sleep(3000)
+
+' 2. Attach to SAP GUI (retry 3 times)
+SapGuiAuto = GetObject("SAPGUI")
+SAPApp = SapGuiAuto.GetScriptingEngine
+SAPCon = SAPApp.OpenConnection(sapSystem)
+session = SAPCon.Children(0)
+
+' 3. Login
+session.findById("wnd[0]/usr/txtRSYST-BNAME").Text = userID
+session.findById("wnd[0]/usr/pwdRSYST-BCODE").Text = password
+session.findById("wnd[0]/tbar[0]/btn[0]").press()
+
+' 4. Verify login status
+LoginStatus = session.findById("wnd[0]/sbar").Text</code></pre>
+                            </div>
+
+                            <h5 class="mt-4">Screenshot Capture Modes</h5>
+                            <div class="row g-3">
+                                <div class="col-md-6">
+                                    <div class="mode-card">
+                                        <h6><i class="bi bi-display me-2 text-primary"></i>Foreground Mode</h6>
+                                        <ul class="small mb-0">
+                                            <li>Maximizes SAP window</li>
+                                            <li>Simulates PrintScreen key</li>
+                                            <li>Captures from Clipboard</li>
+                                            <li>Includes taskbar & timestamp</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="mode-card">
+                                        <h6><i class="bi bi-window me-2 text-success"></i>Background Mode</h6>
+                                        <ul class="small mb-0">
+                                            <li>Uses PrintWindow API</li>
+                                            <li>Falls back to BitBlt</li>
+                                            <li>Overlays timestamp text</li>
+                                            <li>No window focus required</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div id="sec-4-2" class="mt-5">
+                            <h4>4.2 RFC/NCo Integration Layer</h4>
+                            <p>The Housekeeping tab uses SAP .NET Connector for direct RFC calls:</p>
+
+                            <div class="table-responsive">
+                                <table class="table table-bordered doc-table">
+                                    <thead><tr><th>RFC Function</th><th>Purpose</th><th>Called By</th></tr></thead>
+                                    <tbody>
+                                        <tr><td><code>RFC_READ_TABLE</code></td><td>Read USR02 table for user data extraction</td><td><code>SAPHelper.FetchUSR02()</code></td></tr>
+                                        <tr><td><code>BAPI_USER_LOCK</code></td><td>Lock a user account in SAP</td><td><code>SAPHelper.LockUser()</code></td></tr>
+                                        <tr><td><code>BAPI_USER_CHANGE</code></td><td>Change user validity date or user group</td><td><code>SAPHelper.ChangeUserValidity/Group()</code></td></tr>
+                                        <tr><td><code>BAPI_TRANSACTION_COMMIT</code></td><td>Commit BAPI changes with WAIT=X</td><td>After each BAPI call</td></tr>
+                                        <tr><td><code>RfcDestination.Ping()</code></td><td>Test system connectivity</td><td><code>RFCSettingsForm.PingSystem()</code></td></tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <div id="sec-4-3" class="mt-5">
+                            <h4>4.3 ITGC Controls Map</h4>
+                            <div class="table-responsive">
+                                <table class="table table-bordered table-striped doc-table">
+                                    <thead>
+                                        <tr>
+                                            <th width="10%">ID</th>
+                                            <th>Control Description</th>
+                                            <th width="15%">SAP Transaction</th>
+                                            <th width="10%">Status</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr><td><code>ITGC01</code></td><td>SAP OSS Enabling Audit</td><td>SUIM</td><td><span class="badge bg-success">Active</span></td></tr>
+                                        <tr><td><code>ITGC02</code></td><td>Client Opening Audit</td><td>SCC4</td><td><span class="badge bg-success">Active</span></td></tr>
+                                        <tr><td><code>ITGC04</code></td><td>Critical Transaction Usage (CDHDR)</td><td>SE16</td><td><span class="badge bg-success">Active</span></td></tr>
+                                        <tr><td><code>ITGC06</code></td><td>Developer Key/Access in Production</td><td>SE16, SUIM</td><td><span class="badge bg-success">Active</span></td></tr>
+                                        <tr><td><code>ITGC07</code></td><td>SAP_ALL / SAP_NEW Profile Access</td><td>SUIM</td><td><span class="badge bg-success">Active</span></td></tr>
+                                        <tr><td><code>ITGC08</code></td><td>Table Maintenance Access</td><td>SUIM</td><td><span class="badge bg-success">Active</span></td></tr>
+                                        <tr><td><code>ITGC09</code></td><td>Program Execution Authorization</td><td>SUIM</td><td><span class="badge bg-success">Active</span></td></tr>
+                                        <tr><td><code>ITGC10</code></td><td>Security Configuration (5 Checkpoints)</td><td>SUIM</td><td><span class="badge bg-success">Active</span></td></tr>
+                                        <tr><td><code>ITGC11</code></td><td>Transport Import to Production</td><td>SUIM</td><td><span class="badge bg-success">Active</span></td></tr>
+                                        <tr><td><code>ITGC12</code></td><td>Job Administration (SM37 Admin)</td><td>SUIM</td><td><span class="badge bg-success">Active</span></td></tr>
+                                        <tr><td><code>ITGC13</code></td><td>Password Config Change (RZ10)</td><td>SUIM</td><td><span class="badge bg-success">Active</span></td></tr>
+                                        <tr><td><code>ITGC14</code></td><td>Default SAP ID Password Status</td><td>SA38 (RSUSR003)</td><td><span class="badge bg-success">Active</span></td></tr>
+                                        <tr><td><code>ITGC16</code></td><td>SAP Standard Program Changes</td><td>SE16 (TRDIR)</td><td><span class="badge bg-success">Active</span></td></tr>
+                                        <tr><td><code>ITGC17</code></td><td>IDOC Modification Authorization</td><td>SUIM</td><td><span class="badge bg-success">Active</span></td></tr>
+                                        <tr><td><code>ITGC18</code></td><td>SAP Parameter Review</td><td>RZ11</td><td><span class="badge bg-success">Active</span></td></tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- SECTION 5: Data Model -->
+                    <section id="sec-5" class="doc-section" data-aos="fade-up">
+                        <div class="section-number">05</div>
+                        <h2 class="doc-section-title">Data Model</h2>
+
+                        <h4>5.1 SQLite Database Schema</h4>
+                        <div class="code-block">
+                            <div class="code-header"><span>sap_systems.db → SapSystems Table</span></div>
+                            <pre><code>CREATE TABLE IF NOT EXISTS SapSystems (
+    SystemName    TEXT NOT NULL PRIMARY KEY COLLATE NOCASE,
+    AppServerHost TEXT NOT NULL,
+    SystemNumber  TEXT NOT NULL,     -- Always 2 digits (e.g., "00")
+    Client        TEXT NOT NULL,
+    UserName      TEXT NOT NULL,
+    Password      TEXT NOT NULL,     -- DPAPI encrypted (Base64)
+    Language      TEXT NOT NULL,
+    CreatedAt     TEXT NOT NULL DEFAULT (datetime('now')),
+    UpdatedAt     TEXT NOT NULL DEFAULT (datetime('now'))
+);</code></pre>
+                        </div>
+
+                        <h4 class="mt-4">5.2 CSV Audit Records</h4>
+                        <div class="code-block">
+                            <div class="code-header"><span>ITGC_Audit_Comments_{Month}.csv</span></div>
+                            <pre><code>ControlID,Description,System,Status,Comment,Timestamp
+"ITGC01","SAPOSS Enabling Audit","PRD","Green","No change documents found","2025-07-15 14:30:00"
+"ITGC02","Client Opening Audit","PRD","Red","Client opening occurred","2025-07-15 14:45:00"</code></pre>
+                        </div>
+
+                        <h4 class="mt-4">5.3 File System Structure</h4>
+                        <div class="code-block">
+                            <div class="code-header"><span>Output Directory Layout</span></div>
+                            <pre><code>{DownloadDestination}/
+└── ITGC REPORT/
+    ├── July, 2025/
+    │   ├── ITGC01/
+    │   │   └── ITGC01 PRD Audit Report.docx
+    │   ├── ITGC02/
+    │   │   └── ITGC02 PRD Audit Report.docx
+    │   ├── ITGC_Audit_Comments_July, 2025.csv
+    │   └── ITGC_Monthly_Report_July_2025.docx
+    └── August, 2025/
+        └── ...
+
+C:\Void\Logs/
+└── SAPExecutionLog - USERNAME 2025-07-15.txt</code></pre>
+                        </div>
+                    </section>
+
+                    <!-- SECTION 6: Reporting Engine -->
+                    <section id="sec-6" class="doc-section" data-aos="fade-up">
+                        <div class="section-number">06</div>
+                        <h2 class="doc-section-title">Reporting Engine</h2>
+
+                        <h4>6.1 Monthly Report Structure</h4>
+                        <p>The <code>WordReportGenerator</code> module creates a professional Word document with the following sections:</p>
+
+                        <div class="report-structure my-4">
+                            <div class="report-section-card" data-aos="fade-up" data-aos-delay="0">
+                                <div class="report-section-num">§1</div>
+                                <h6>Cover Page</h6>
+                                <p class="small mb-0">Cover image (cover.png) centered on first page</p>
+                            </div>
+                            <div class="report-section-card" data-aos="fade-up" data-aos-delay="100">
+                                <div class="report-section-num">§2</div>
+                                <h6>Document Control</h6>
+                                <p class="small mb-0">Metadata table: Generated date, Client, Prepared/Reviewed/Approved By</p>
+                            </div>
+                            <div class="report-section-card" data-aos="fade-up" data-aos-delay="200">
+                                <div class="report-section-num">§3</div>
+                                <h6>Control Summary</h6>
+                                <p class="small mb-0">Dashboard: Total Controls, Green count, Red count</p>
+                            </div>
+                            <div class="report-section-card" data-aos="fade-up" data-aos-delay="300">
+                                <div class="report-section-num">§4</div>
+                                <h6>Detailed Records</h6>
+                                <p class="small mb-0">6-column table with status coloring (Green/Red shading)</p>
+                            </div>
+                            <div class="report-section-card" data-aos="fade-up" data-aos-delay="400">
+                                <div class="report-section-num">§5</div>
+                                <h6>Action Summary</h6>
+                                <p class="small mb-0">Grouped by Control ID → System → Required Action (from XML metadata)</p>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- SECTION 7: Error Handling -->
+                    <section id="sec-7" class="doc-section" data-aos="fade-up">
+                        <div class="section-number">07</div>
+                        <h2 class="doc-section-title">Error Handling & Logging</h2>
+
+                        <h4>7.1 Logging Architecture</h4>
+                        <div class="row g-3">
+                            <div class="col-md-4">
+                                <div class="log-level-card log-success">
+                                    <i class="bi bi-check-circle-fill"></i>
+                                    <h6>SUCCESS</h6>
+                                    <p class="small mb-0">Normal operations, milestones, completion messages</p>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="log-level-card log-error">
+                                    <i class="bi bi-x-circle-fill"></i>
+                                    <h6>ERROR</h6>
+                                    <p class="small mb-0">Operation failures, validation errors, user-facing issues</p>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="log-level-card log-exception">
+                                    <i class="bi bi-exclamation-triangle-fill"></i>
+                                    <h6>EXCEPTION</h6>
+                                    <p class="small mb-0">Full stack traces, source info, separator lines</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <h5 class="mt-4">Log File Format</h5>
+                        <div class="code-block">
+                            <div class="code-header"><span>SAPExecutionLog - USERNAME 2025-07-15.txt</span></div>
+                            <pre><code>07/15/2025 2:30:00 PM [USERNAME] - [SUCCESS] Log initialized for Control: ITGC01
+07/15/2025 2:30:01 PM [USERNAME] - [SUCCESS] ITGC01 Execution Started!
+07/15/2025 2:30:05 PM [USERNAME] - [SUCCESS] Login Successful.
+07/15/2025 2:31:30 PM [USERNAME] - [SUCCESS] File saved successfully at: C:\...\Report.docx
+07/15/2025 2:31:31 PM [USERNAME] - [SUCCESS] Disconnected from SAP.
+07/15/2025 2:31:32 PM [USERNAME] - [ERROR] SAP Attachment Failed: ...
+07/15/2025 2:31:32 PM [USERNAME] - [EXCEPTION] Failed during SAP attachment
+   Message   : Object reference not set...
+   Source    : ITGC_AUDIT
+   StackTrace: at ITGC_AUDIT.AttachToSAP()...
+--------------------------------------------------------------------------------</code></pre>
+                        </div>
+                    </section>
+
+                    <!-- SECTION 8: Deployment Guide -->
+                    <section id="sec-8" class="doc-section" data-aos="fade-up">
+                        <div class="section-number">08</div>
+                        <h2 class="doc-section-title">Deployment Guide</h2>
+
+                        <h4>8.1 Required Files</h4>
+                        <div class="code-block">
+                            <div class="code-header"><span>Application Root Directory</span></div>
+                            <pre><code>AuditX/
+├── AuditX.exe                     ← Main executable
+├── AuditX.exe.config              ← App settings
+├── sapnco.dll                     ← SAP NCo connector
+├── sapnco_utils.dll               ← SAP NCo utilities
+├── System.Data.SQLite.dll         ← SQLite driver
+├── Newtonsoft.Json.dll            ← JSON parser
+├── Microsoft.Web.WebView2.*.dll   ← WebView2 runtime
+├── ITGCControls.xml               ← Control definitions
+├── saplogon.xml                   ← SAP system list (copy)
+├── license.cert                   ← Encrypted license file
+├── cover.png                      ← Report cover image
+├── sap_systems.db                 ← SQLite database (auto-created)
+└── Backup/                        ← XML backup folder (auto-created)</code></pre>
+                        </div>
+
+                        <h4 class="mt-4">8.2 Pre-Deployment Checklist</h4>
+                        <div class="checklist">
+                            <div class="checklist-item"><i class="bi bi-check-square text-success"></i><span>.NET Framework 4.8 installed on target machine</span></div>
+                            <div class="checklist-item"><i class="bi bi-check-square text-success"></i><span>SAP GUI for Windows installed with scripting enabled</span></div>
+                            <div class="checklist-item"><i class="bi bi-check-square text-success"></i><span>sapnco.dll and sapnco_utils.dll present in app directory</span></div>
+                            <div class="checklist-item"><i class="bi bi-check-square text-success"></i><span>Microsoft Office 2016+ installed (Word & Excel)</span></div>
+                            <div class="checklist-item"><i class="bi bi-check-square text-success"></i><span>Valid license.cert file placed in app directory</span></div>
+                            <div class="checklist-item"><i class="bi bi-check-square text-success"></i><span>Network access to SAP servers and Firebase RTDB</span></div>
+                            <div class="checklist-item"><i class="bi bi-check-square text-success"></i><span>Write permissions to C:\Void\Logs and Downloads folder</span></div>
+                            <div class="checklist-item"><i class="bi bi-check-square text-success"></i><span>WebView2 Evergreen Runtime installed (for Instruction tab)</span></div>
+                        </div>
+                    </section>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer-section mt-5">
+        <div class="container">
+            <div class="row align-items-center py-4">
+                <div class="col-md-6">
+                    <div class="d-flex align-items-center gap-2">
+                        <div class="brand-icon-sm"><i class="bi bi-shield-check"></i></div>
+                        <div>
+                            <strong>AuditX</strong> Technical Documentation
+                            <br><small class="text-muted">&copy; 2025 Void Automation</small>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 text-md-end mt-3 mt-md-0">
+                    <a href="index.html" class="footer-link">Home</a>
+                    <a href="sopdoc.html" class="footer-link">SOP</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <button class="scroll-top-btn" id="scrollTopBtn"><i class="bi bi-arrow-up-short"></i></button>
+
+    <div class="modal fade" id="pdfModal" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered modal-sm">
+            <div class="modal-content text-center p-4">
+                <div class="spinner-border text-primary mx-auto mb-3" role="status"></div>
+                <h6>Generating PDF...</h6>
+                <p class="text-muted small mb-0">Please wait.</p>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,1092 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="./img/AVSA_icon.ico" type="image/x-icon">
+    <title>AuditX - Standard Operating Procedures</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="reading-progress" id="readingProgress"></div>
+
+    <!-- Glossary Tooltip -->
+    <div class="glossary-tooltip" id="glossaryTooltip" style="display:none;">
+        <div class="glossary-tooltip-header"></div>
+        <div class="glossary-tooltip-body"></div>
+    </div>
+
+    <!-- Search Modal -->
+    <div class="modal fade" id="searchModal" tabindex="-1">
+        <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
+            <div class="modal-content search-modal-content">
+                <div class="modal-header border-0 pb-0">
+                    <div class="search-input-wrapper w-100">
+                        <i class="bi bi-search search-icon"></i>
+                        <input type="text" class="form-control search-input" id="globalSearchInput" placeholder="Search documentation..." autofocus>
+                        <kbd class="search-kbd">ESC</kbd>
+                    </div>
+                </div>
+                <div class="modal-body pt-2">
+                    <div id="searchResults" class="search-results">
+                        <div class="search-hint text-center py-4">
+                            <i class="bi bi-lightbulb text-warning fs-3 d-block mb-2"></i>
+                            <p class="text-muted mb-0">Try: "login", "RFC", "ITGC01", "screenshot"</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg fixed-top glass-nav" id="mainNav">
+        <div class="container-fluid px-4">
+            <a class="navbar-brand d-flex align-items-center gap-2" href="index.html">
+                <div class="brand-icon"><i class="bi bi-shield-check"></i></div>
+                <div><span class="brand-name">AuditX</span><span class="brand-tag">SOP Guide</span></div>
+            </a>
+            <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <i class="bi bi-list fs-4"></i>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto align-items-center gap-2">
+                    <li class="nav-item"><a class="nav-link" href="index.html"><i class="bi bi-house-door me-1"></i>Home</a></li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle active" href="#" role="button" data-bs-toggle="dropdown">
+                            <i class="bi bi-file-earmark-text me-1"></i>Documentation
+                        </a>
+                        <ul class="dropdown-menu glass-dropdown">
+                            <li><a class="dropdown-item" href="technicaldoc.html">
+                                <i class="bi bi-gear-wide-connected me-2 text-primary"></i>
+                                <div><strong>Technical Document</strong><small class="d-block text-muted">Architecture, APIs, Data Flow</small></div>
+                            </a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item active" href="sopdoc.html">
+                                <i class="bi bi-list-check me-2 text-success"></i>
+                                <div><strong>SOP Document</strong><small class="d-block text-muted">Step-by-Step Procedures</small></div>
+                            </a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item ms-1">
+                        <button class="btn btn-outline-secondary btn-sm rounded-pill search-trigger" id="searchTrigger" title="Ctrl+K">
+                            <i class="bi bi-search me-1"></i><kbd>⌘K</kbd>
+                        </button>
+                    </li>
+                    <li class="nav-item ms-1">
+                        <button class="btn btn-outline-secondary btn-sm rounded-pill theme-toggle" id="themeToggle">
+                            <i class="bi bi-moon-stars-fill"></i>
+                        </button>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Doc Hero -->
+    <section class="doc-hero doc-hero-sop">
+        <div class="container">
+            <div class="row align-items-center py-5">
+                <div class="col-lg-8" data-aos="fade-right">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb breadcrumb-custom">
+                            <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                            <li class="breadcrumb-item active">Standard Operating Procedures</li>
+                        </ol>
+                    </nav>
+                    <h1 class="doc-title">
+                        <i class="bi bi-list-check me-3 text-success"></i>Standard Operating Procedures
+                    </h1>
+                    <p class="doc-subtitle mt-3">
+                        Step-by-step operational guide for using AuditX to perform ITGC audits,
+                        manage SAP systems, generate reports, and maintain the application.
+                    </p>
+                    <div class="doc-meta mt-4">
+                        <span class="doc-meta-item"><i class="bi bi-calendar3 me-1"></i>Effective: July 2025</span>
+                        <span class="doc-meta-item"><i class="bi bi-person me-1"></i>IT Auditors & Operators</span>
+                        <span class="doc-meta-item"><i class="bi bi-bookmark-check me-1"></i>12 Procedures</span>
+                    </div>
+                </div>
+                <div class="col-lg-4 text-end" data-aos="fade-left">
+                    <button class="btn btn-success btn-lg" onclick="exportPageAsPDF('AuditX_SOP_Document')">
+                        <i class="bi bi-file-earmark-pdf me-2"></i>Export as PDF
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Layout -->
+    <div class="container-fluid">
+        <div class="row">
+
+            <!-- Sidebar -->
+            <div class="col-lg-3 d-none d-lg-block">
+                <nav class="doc-sidebar" id="docSidebar">
+                    <div class="sidebar-header"><i class="bi bi-list-nested me-2"></i>Procedures</div>
+                    <ul class="sidebar-nav" id="sidebarNav">
+                        <li><a href="#sop-prereq" class="sidebar-link active">Prerequisites</a></li>
+                        <li><a href="#sop-1" class="sidebar-link">SOP-01: Login</a></li>
+                        <li><a href="#sop-2" class="sidebar-link">SOP-02: Configure SAP</a></li>
+                        <li><a href="#sop-3" class="sidebar-link">SOP-03: Execute Control</a></li>
+                        <li><a href="#sop-4" class="sidebar-link">SOP-04: All Controls</a></li>
+                        <li><a href="#sop-5" class="sidebar-link">SOP-05: Generate Report</a></li>
+                        <li><a href="#sop-6" class="sidebar-link">SOP-06: RFC Setup</a></li>
+                        <li><a href="#sop-7" class="sidebar-link">SOP-07: Inactivity Analysis</a></li>
+                        <li><a href="#sop-8" class="sidebar-link">SOP-08: Multi-System</a></li>
+                        <li><a href="#sop-9" class="sidebar-link">SOP-09: Lock/Manage Users</a></li>
+                        <li><a href="#sop-10" class="sidebar-link">SOP-10: View Logs</a></li>
+                        <li><a href="#sop-11" class="sidebar-link">SOP-11: Edit Appendix</a></li>
+                        <li><a href="#sop-12" class="sidebar-link">SOP-12: Settings</a></li>
+                    </ul>
+                </nav>
+            </div>
+
+            <!-- Content -->
+            <div class="col-lg-9" id="printableArea">
+                <div class="doc-content">
+
+                    <!-- Doc Header Card -->
+                    <div class="sop-header-card mb-5" data-aos="fade-up">
+                        <div class="row">
+                            <div class="col-md-3"><div class="sop-meta-block"><small class="text-muted">Document ID</small><strong>AuditX-SOP-2025-v2.0</strong></div></div>
+                            <div class="col-md-3"><div class="sop-meta-block"><small class="text-muted">Prepared By</small><strong>Void Automation</strong></div></div>
+                            <div class="col-md-3"><div class="sop-meta-block"><small class="text-muted">Effective Date</small><strong>July 2025</strong></div></div>
+                            <div class="col-md-3"><div class="sop-meta-block"><small class="text-muted">Review Cycle</small><strong>Quarterly</strong></div></div>
+                        </div>
+                    </div>
+
+                    <!-- =============================================
+                         PREREQUISITES
+                         ============================================= -->
+                    <section id="sop-prereq" class="doc-section sop-section" data-aos="fade-up">
+                        <div class="sop-badge" style="background:linear-gradient(135deg,#f57f17,#e65100);">Prerequisites</div>
+                        <h2 class="doc-section-title">Prerequisites & Environment Setup</h2>
+
+                        <div class="doc-info-box info-box-red">
+                            <div class="info-box-icon"><i class="bi bi-exclamation-octagon-fill"></i></div>
+                            <div>
+                                <h6 class="mb-1">Critical — Complete All Prerequisites Before First Use</h6>
+                                <p class="mb-0">Failure to complete the following steps will result in execution failures, missing screenshots, or incomplete audit evidence.</p>
+                            </div>
+                        </div>
+
+                        <!-- 1. System Requirements -->
+                        <h4 class="mt-4"><i class="bi bi-pc-display me-2 text-primary"></i>1. System Requirements</h4>
+                        <div class="prereq-checklist">
+
+                            <div class="prereq-item">
+                                <div class="prereq-check"><i class="bi bi-check-circle-fill text-success"></i></div>
+                                <div class="prereq-content">
+                                    <h6>Windows 10/11 with Interactive Session</h6>
+                                    <p class="mb-0 text-muted small">Required for Foreground execution mode (SAP GUI must be visible on screen) and Word Interop (COM automation requires an interactive desktop session). Remote Desktop (RDP) sessions are supported but must have an active display.</p>
+                                </div>
+                                <span class="prereq-tag tag-required">Required</span>
+                            </div>
+
+                            <div class="prereq-item">
+                                <div class="prereq-check"><i class="bi bi-check-circle-fill text-success"></i></div>
+                                <div class="prereq-content">
+                                    <h6>.NET Framework 4.8</h6>
+                                    <p class="mb-0 text-muted small">The application targets .NET Framework 4.8. Verify via:
+                                    <code>Control Panel → Programs → Turn Windows features on/off → .NET Framework 4.8</code><br>
+                                    Or run: <code>reg query "HKLM\SOFTWARE\Microsoft\NET Framework Setup\NDP\v4\Full" /v Release</code></p>
+                                </div>
+                                <span class="prereq-tag tag-required">Required</span>
+                            </div>
+
+                            <div class="prereq-item">
+                                <div class="prereq-check"><i class="bi bi-check-circle-fill text-success"></i></div>
+                                <div class="prereq-content">
+                                    <h6>Visual C++ Redistributable 2013 or Later</h6>
+                                    <p class="mb-0 text-muted small">Required by SAP NCo (sapnco.dll). Install both <strong>x86</strong> and <strong>x64</strong> versions from Microsoft. If missing, you will see <em>"The specified module could not be found"</em> errors when starting Housekeeping tab.</p>
+                                </div>
+                                <span class="prereq-tag tag-required">Required</span>
+                            </div>
+
+                            <div class="prereq-item">
+                                <div class="prereq-check"><i class="bi bi-check-circle-fill text-success"></i></div>
+                                <div class="prereq-content">
+                                    <h6>Microsoft Word — Installed and Licensed</h6>
+                                    <p class="mb-0 text-muted small">Microsoft Office 2016 or later. Word must be <strong>fully licensed and activated</strong> — trial/expired versions will throw COM Interop exceptions. Used for all audit evidence documents and monthly reports.</p>
+                                </div>
+                                <span class="prereq-tag tag-required">Required</span>
+                            </div>
+
+                            <div class="prereq-item">
+                                <div class="prereq-check"><i class="bi bi-check-circle-fill text-success"></i></div>
+                                <div class="prereq-content">
+                                    <h6>SAP GUI Installed — saplogon.exe Accessible</h6>
+                                    <p class="mb-0 text-muted small">SAP GUI for Windows 7.70 or later. Default path:<br>
+                                    <code>C:\Program Files (x86)\SAP\FrontEnd\SAPgui\saplogon.exe</code><br>
+                                    Configurable in Settings tab under <em>SAP Logon Path</em>.</p>
+                                </div>
+                                <span class="prereq-tag tag-required">Required</span>
+                            </div>
+
+                            <div class="prereq-item">
+                                <div class="prereq-check"><i class="bi bi-check-circle-fill text-success"></i></div>
+                                <div class="prereq-content">
+                                    <h6>SAP Scripting Enabled — Client Side</h6>
+                                    <p class="mb-1 text-muted small">Go to: <strong>SAP Logon → Options → Accessibility &amp; Scripting → Scripting</strong></p>
+                                    <ul class="small mb-0">
+                                        <li>✅ <strong>Enable scripting</strong> — must be checked</li>
+                                        <li>⬜ Notify when a script attaches to SAP GUI — uncheck for silent automation</li>
+                                        <li>⬜ Notify when a script opens a connection — uncheck</li>
+                                    </ul>
+                                </div>
+                                <span class="prereq-tag tag-required">Required</span>
+                            </div>
+
+                            <div class="prereq-item">
+                                <div class="prereq-check"><i class="bi bi-check-circle-fill text-success"></i></div>
+                                <div class="prereq-content">
+                                    <h6>SAP Scripting Enabled — Server Side</h6>
+                                    <p class="mb-0 text-muted small">The SAP parameter <code class="glossary-term" data-term="RZ11">sapgui/user_scripting</code> must be <code>TRUE</code>. Verify via transaction <code class="glossary-term" data-term="RZ11">RZ11</code>. Contact your SAP Basis team if this is disabled — it requires a system restart on some versions.</p>
+                                </div>
+                                <span class="prereq-tag tag-required">Required</span>
+                            </div>
+
+                            <div class="prereq-item">
+                                <div class="prereq-check"><i class="bi bi-check-circle-fill text-success"></i></div>
+                                <div class="prereq-content">
+                                    <h6>Application Configuration (My.Settings) Populated</h6>
+                                    <p class="mb-1 text-muted small">Navigate to <strong>Settings Tab</strong> and configure all required fields before first execution:</p>
+                                    <div class="row g-1">
+                                        <div class="col-md-6">
+                                            <ul class="small mb-0">
+                                                <li>Start Time / End Time (<code>HH:mm:ss</code>)</li>
+                                                <li>SAP GUI XML path (<code>saplogon.xml</code>)</li>
+                                                <li>ITGC Control XML path</li>
+                                                <li>SAP Logon executable path</li>
+                                            </ul>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <ul class="small mb-0">
+                                                <li>Download destination folder</li>
+                                                <li>SAP OSS ID (for ITGC01)</li>
+                                                <li>T-Code list (for ITGC04)</li>
+                                                <li>Approved Users per control (ITGC08–17)</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                <span class="prereq-tag tag-required">Required</span>
+                            </div>
+
+                            <div class="prereq-item">
+                                <div class="prereq-check"><i class="bi bi-check-circle-fill text-success"></i></div>
+                                <div class="prereq-content">
+                                    <h6>Write Access to Report Output Directory</h6>
+                                    <p class="mb-0 text-muted small">Default path: <code>%USERPROFILE%\Downloads\ITGC REPORT</code><br>
+                                    Subfolders are created automatically: <code>ITGC REPORT → {Month, Year} → {ControlID}</code><br>
+                                    The user running AuditX must have full write access to this folder tree.</p>
+                                </div>
+                                <span class="prereq-tag tag-required">Required</span>
+                            </div>
+
+                            <div class="prereq-item">
+                                <div class="prereq-check"><i class="bi bi-check-circle-fill text-success"></i></div>
+                                <div class="prereq-content">
+                                    <h6>Write Access to Log Directory</h6>
+                                    <p class="mb-0 text-muted small">Log files are written to: <code>C:\Void\Logs\</code><br>
+                                    The directory is created automatically on first run, but the executing user needs write access to <code>C:\Void\</code>. If blocked by policy, configure an alternate path.</p>
+                                </div>
+                                <span class="prereq-tag tag-required">Required</span>
+                            </div>
+
+                        </div>
+
+                        <!-- 2. SAP GUI Security Settings -->
+                        <h4 class="mt-5"><i class="bi bi-shield-exclamation me-2 text-warning"></i>2. SAP GUI Security Settings — Allow Automation Directory</h4>
+
+                        <div class="doc-info-box info-box-blue">
+                            <div class="info-box-icon"><i class="bi bi-info-circle-fill"></i></div>
+                            <div>
+                                <h6 class="mb-1">🔒 Update SAP GUI Security Settings</h6>
+                                <p class="mb-0">SAP GUI has a security layer that may block external scripts from controlling the GUI session. You must add an explicit <strong>"Always Allow"</strong> rule for the AuditX application directory to prevent permission dialogs during automation.</p>
+                            </div>
+                        </div>
+
+                        <div class="sop-steps mt-4">
+                            <div class="sop-step">
+                                <div class="sop-step-num">1</div>
+                                <div class="sop-step-content">
+                                    <h6>Open SAP Logon Options</h6>
+                                    <p>Open SAP Logon, then navigate to:<br>
+                                    <strong>SAP Logon → Options (F12) → Security → Security Settings</strong></p>
+                                </div>
+                            </div>
+
+                            <div class="sop-step">
+                                <div class="sop-step-num">2</div>
+                                <div class="sop-step-content">
+                                    <h6>Add New Security Rule</h6>
+                                    <p>Click <strong>"Add Rule"</strong> or <strong>"+"</strong> button and set the following:</p>
+                                    <div class="table-responsive">
+                                        <table class="table table-bordered table-sm doc-table">
+                                            <tbody>
+                                                <tr><td width="35%"><strong>Rule Action</strong></td><td><span class="badge bg-success">Always Allow</span></td></tr>
+                                                <tr><td><strong>Object Type</strong></td><td>Script / Application</td></tr>
+                                                <tr><td><strong>Path / Directory</strong></td><td><code>C:\AuditX\</code> &nbsp;(or your actual installation path)</td></tr>
+                                                <tr><td><strong>Scope</strong></td><td>All files in directory and subdirectories</td></tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="sop-step">
+                                <div class="sop-step-num">3</div>
+                                <div class="sop-step-content">
+                                    <h6>Verify the Security Rule Configuration</h6>
+                                    <p>Your security settings dialog should look like the screenshot below. The AuditX directory must appear in the <em>Allowed</em> list with <em>Always Allow</em> permission.</p>
+
+                                    <!-- SAP Security Screenshot -->
+                                    <div class="screenshot-container mt-3">
+                                        <div class="screenshot-header">
+                                            <i class="bi bi-camera me-2"></i>
+                                            <span>SAP GUI → Options → Security → Security Settings</span>
+                                            <span class="ms-auto text-muted small">Figure P-1</span>
+                                        </div>
+                                        <div class="screenshot-body">
+                                            <img src="img/placeholder-sap-security.png"
+                                                 alt="SAP GUI Security Settings showing Always Allow rule for AuditX directory"
+                                                 class="screenshot-img"
+                                                 loading="lazy"
+                                                 onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+                                            <div class="screenshot-missing" style="display:none">
+                                                <i class="bi bi-image-alt"></i>
+                                                <div>
+                                                    <strong>Screenshot not found</strong><br>
+                                                    <small>Place your screenshot at: <code>img/placeholder-sap-security.png</code></small>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="screenshot-caption">
+                                            Figure P-1: SAP GUI Security Settings — "Always Allow" rule added for the AuditX automation directory. This prevents security prompts during scripting.
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="sop-step">
+                                <div class="sop-step-num">4</div>
+                                <div class="sop-step-content">
+                                    <h6>Click OK and Restart SAP Logon</h6>
+                                    <p>Click <strong>OK</strong> to save the security settings. Restart SAP Logon for the changes to take effect. Run AuditX and verify no security prompt appears when execution begins.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 3. Required Files Checklist -->
+                        <h4 class="mt-5"><i class="bi bi-file-earmark-check me-2 text-success"></i>3. Required Files Checklist</h4>
+
+                        <div class="table-responsive">
+                            <table class="table table-bordered doc-table">
+                                <thead>
+                                    <tr>
+                                        <th width="5%" class="text-center">✓</th>
+                                        <th width="30%">File</th>
+                                        <th>Purpose</th>
+                                        <th width="12%">Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr><td class="text-center"><input type="checkbox" class="form-check-input fs-5"></td><td><code>AuditX.exe</code></td><td>Main application executable</td><td><span class="badge bg-danger-subtle text-danger">Required</span></td></tr>
+                                    <tr><td class="text-center"><input type="checkbox" class="form-check-input fs-5"></td><td><code>sapnco.dll</code></td><td>SAP NCo connector (RFC communication)</td><td><span class="badge bg-danger-subtle text-danger">Required</span></td></tr>
+                                    <tr><td class="text-center"><input type="checkbox" class="form-check-input fs-5"></td><td><code>sapnco_utils.dll</code></td><td>SAP NCo utility functions</td><td><span class="badge bg-danger-subtle text-danger">Required</span></td></tr>
+                                    <tr><td class="text-center"><input type="checkbox" class="form-check-input fs-5"></td><td><code>System.Data.SQLite.dll</code></td><td>SQLite database driver for RFC system storage</td><td><span class="badge bg-danger-subtle text-danger">Required</span></td></tr>
+                                    <tr><td class="text-center"><input type="checkbox" class="form-check-input fs-5"></td><td><code>Newtonsoft.Json.dll</code></td><td>JSON parser for Firebase license validation</td><td><span class="badge bg-danger-subtle text-danger">Required</span></td></tr>
+                                    <tr><td class="text-center"><input type="checkbox" class="form-check-input fs-5"></td><td><code>license.cert</code></td><td>AES-encrypted license certificate</td><td><span class="badge bg-danger-subtle text-danger">Required</span></td></tr>
+                                    <tr><td class="text-center"><input type="checkbox" class="form-check-input fs-5"></td><td><code>ITGCControls.xml</code></td><td>Control definitions, descriptions, required actions</td><td><span class="badge bg-danger-subtle text-danger">Required</span></td></tr>
+                                    <tr><td class="text-center"><input type="checkbox" class="form-check-input fs-5"></td><td><code>saplogon.xml</code></td><td>SAP system connection list (from SAP GUI)</td><td><span class="badge bg-danger-subtle text-danger">Required</span></td></tr>
+                                    <tr><td class="text-center"><input type="checkbox" class="form-check-input fs-5"></td><td><code>cover.png</code></td><td>Report cover page image</td><td><span class="badge bg-warning-subtle text-warning">Recommended</span></td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <div class="doc-info-box info-box-green mt-3">
+                            <div class="info-box-icon"><i class="bi bi-check-circle-fill"></i></div>
+                            <div>
+                                <h6 class="mb-1">All Prerequisites Verified?</h6>
+                                <p class="mb-0">Proceed to <a href="#sop-1" class="fw-bold">SOP-01: Application Login</a> to begin using AuditX.</p>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- =============================================
+                         SOP-01: LOGIN
+                         ============================================= -->
+                    <section id="sop-1" class="doc-section sop-section" data-aos="fade-up">
+                        <div class="sop-badge">SOP-01</div>
+                        <h2 class="doc-section-title">Application Login</h2>
+                        <div class="sop-info-row">
+                            <div><strong>Purpose:</strong> Authenticate and access the AuditX dashboard</div>
+                            <div><strong>Role:</strong> All Users</div>
+                            <div><strong>Frequency:</strong> Each Session</div>
+                        </div>
+
+                        <div class="sop-steps">
+
+                            <div class="sop-step">
+                                <div class="sop-step-num">1</div>
+                                <div class="sop-step-content">
+                                    <h6>Launch AuditX Application</h6>
+                                    <p>Double-click <code>AuditX.exe</code> from the installation directory. The Login Form will appear on screen.</p>
+                                    <div class="screenshot-container">
+                                        <div class="screenshot-header">
+                                            <i class="bi bi-camera me-2"></i>
+                                            <span>AuditX Login Form</span>
+                                            <span class="ms-auto text-muted small">Figure 1-1</span>
+                                        </div>
+                                        <div class="screenshot-body">
+                                            <img src="img/placeholder-login.png"
+                                                 alt="AuditX Login Form"
+                                                 class="screenshot-img"
+                                                 loading="lazy"
+                                                 onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+                                            <div class="screenshot-missing" style="display:none">
+                                                <i class="bi bi-image-alt"></i>
+                                                <div><strong>Screenshot not found</strong><br><small>Expected: <code>img/placeholder-login.png</code></small></div>
+                                            </div>
+                                        </div>
+                                        <div class="screenshot-caption">Figure 1-1: AuditX Login Form with Windows Authentication button</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="sop-step">
+                                <div class="sop-step-num">2</div>
+                                <div class="sop-step-content">
+                                    <h6>Click Login — Enter Windows Credentials</h6>
+                                    <p>Click the <strong>Login</strong> button. A Windows credential dialog appears with your <code>DOMAIN\Username</code> pre-filled. Enter your Windows password.</p>
+                                    <div class="doc-info-box info-box-blue">
+                                        <div class="info-box-icon"><i class="bi bi-info-circle-fill"></i></div>
+                                        <div><p class="mb-0">Uses native Windows CredUI API. Your credentials are validated against Active Directory via <code>LogonUser</code> Win32 API — not stored anywhere by AuditX.</p></div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="sop-step">
+                                <div class="sop-step-num">3</div>
+                                <div class="sop-step-content">
+                                    <h6>Automatic License Validation</h6>
+                                    <p>After Windows authentication succeeds, the system automatically:</p>
+                                    <ol class="small">
+                                        <li>Reads <code>license.cert</code> from the application directory</li>
+                                        <li>Decrypts using AES-256 with Rfc2898DeriveBytes</li>
+                                        <li>Verifies SHA256 signature matches expected hash</li>
+                                        <li>Confirms Windows ID matches <code>DOMAIN\Username</code></li>
+                                        <li>Makes REST GET to Firebase RTDB to verify expiry date</li>
+                                    </ol>
+                                </div>
+                            </div>
+
+                            <div class="sop-step sop-step-success">
+                                <div class="sop-step-num"><i class="bi bi-check-lg"></i></div>
+                                <div class="sop-step-content">
+                                    <h6>Dashboard Opens — Login Successful</h6>
+                                    <p>The Home Dashboard opens with all 7 tabs accessible. Click your profile avatar (top-right) to view your name, email, and license expiry date.</p>
+                                    <div class="screenshot-container">
+                                        <div class="screenshot-header">
+                                            <i class="bi bi-camera me-2"></i>
+                                            <span>Home Dashboard — After Login</span>
+                                            <span class="ms-auto text-muted small">Figure 1-2</span>
+                                        </div>
+                                        <div class="screenshot-body">
+                                            <img src="img/placeholder-dashboard.png"
+                                                 alt="AuditX Home Dashboard"
+                                                 class="screenshot-img"
+                                                 loading="lazy"
+                                                 onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+                                            <div class="screenshot-missing" style="display:none">
+                                                <i class="bi bi-image-alt"></i>
+                                                <div><strong>Screenshot not found</strong><br><small>Expected: <code>img/placeholder-dashboard.png</code></small></div>
+                                            </div>
+                                        </div>
+                                        <div class="screenshot-caption">Figure 1-2: Home Dashboard showing all 7 tabs, execution settings, status charts, and control grid</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- =============================================
+                         SOP-02: Configure SAP
+                         ============================================= -->
+                    <section id="sop-2" class="doc-section sop-section" data-aos="fade-up">
+                        <div class="sop-badge">SOP-02</div>
+                        <h2 class="doc-section-title">Configure SAP System (Home Tab)</h2>
+                        <div class="sop-info-row">
+                            <div><strong>Purpose:</strong> Select SAP system and configure execution parameters</div>
+                            <div><strong>Tab:</strong> Home</div>
+                        </div>
+
+                        <div class="sop-steps">
+                            <div class="sop-step">
+                                <div class="sop-step-num">1</div>
+                                <div class="sop-step-content">
+                                    <h6>Select Execution Type</h6>
+                                    <p>In the <strong>Execution Setting</strong> group, choose from the first dropdown:</p>
+                                    <ul>
+                                        <li><strong>Individual Control</strong> — Run one specific ITGC control</li>
+                                        <li><strong>All Controls</strong> — Run all 15 active controls in sequence</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="sop-step">
+                                <div class="sop-step-num">2</div>
+                                <div class="sop-step-content">
+                                    <h6>Select Execution Mode</h6>
+                                    <ul>
+                                        <li><strong>Foreground</strong> — SAP window fully visible; uses PrintScreen via keyboard simulation</li>
+                                        <li><strong>Background</strong> — SAP window can be behind others; uses Win32 <code>PrintWindow</code> API with timestamp overlay</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="sop-step">
+                                <div class="sop-step-num">3</div>
+                                <div class="sop-step-content">
+                                    <h6>Select ITGC Control</h6>
+                                    <p>Choose from the <strong>Select ITGC Control</strong> dropdown (e.g., <code>ITGC01 - SAPOSS Enabling Audit</code>). The control description auto-populates below the dropdown.</p>
+                                </div>
+                            </div>
+                            <div class="sop-step">
+                                <div class="sop-step-num">4</div>
+                                <div class="sop-step-content">
+                                    <h6>Select SAP System</h6>
+                                    <p>Choose the target SAP production system from the <strong>Select SAP System</strong> dropdown. The System ID displays to the right. Optionally check <strong>Client</strong> to manually override the default client number.</p>
+                                </div>
+                            </div>
+                            <div class="sop-step">
+                                <div class="sop-step-num">5</div>
+                                <div class="sop-step-content">
+                                    <h6>Enter SAP Credentials</h6>
+                                    <p>Enter your SAP <strong>User ID</strong> (default: <code>ITGCBOT</code>) and <strong>Password</strong>.</p>
+                                    <div class="doc-info-box info-box-yellow">
+                                        <div class="info-box-icon"><i class="bi bi-exclamation-triangle-fill"></i></div>
+                                        <div><p class="mb-0">These are <strong>SAP credentials</strong>, NOT Windows credentials. The account needs sufficient authorization for all transactions used by the selected ITGC control.</p></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="sop-step">
+                                <div class="sop-step-num">6</div>
+                                <div class="sop-step-content">
+                                    <h6>Set Report Duration</h6>
+                                    <p>In <strong>Report Duration</strong>, set the <strong>From</strong> and <strong>To</strong> dates. The <em>Report Month</em> label auto-calculates (e.g., "July, 2025") and the output folder path updates automatically.</p>
+                                    <div class="screenshot-container mt-3">
+                                        <div class="screenshot-header">
+                                            <i class="bi bi-camera me-2"></i>
+                                            <span>Home Tab — Fully Configured for Execution</span>
+                                            <span class="ms-auto text-muted small">Figure 2-1</span>
+                                        </div>
+                                        <div class="screenshot-body">
+                                            <img src="img/placeholder-dashboard.png"
+                                                 alt="Home Tab Configured"
+                                                 class="screenshot-img"
+                                                 loading="lazy"
+                                                 onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+                                            <div class="screenshot-missing" style="display:none">
+                                                <i class="bi bi-image-alt"></i>
+                                                <div><strong>Screenshot not found</strong><br><small>Expected: <code>img/placeholder-dashboard.png</code></small></div>
+                                            </div>
+                                        </div>
+                                        <div class="screenshot-caption">Figure 2-1: Home tab with all fields configured — system selected, credentials entered, date range set</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- =============================================
+                         SOP-03: Execute Control
+                         ============================================= -->
+                    <section id="sop-3" class="doc-section sop-section" data-aos="fade-up">
+                        <div class="sop-badge">SOP-03</div>
+                        <h2 class="doc-section-title">Execute Individual ITGC Control</h2>
+                        <div class="sop-info-row">
+                            <div><strong>Purpose:</strong> Run a single ITGC audit control with evidence capture</div>
+                            <div><strong>Estimated Time:</strong> 2–5 minutes per control</div>
+                        </div>
+
+                        <div class="sop-steps">
+                            <div class="sop-step">
+                                <div class="sop-step-num">1</div>
+                                <div class="sop-step-content"><h6>Complete SOP-02</h6><p>Ensure all fields in the Home tab are properly configured per SOP-02.</p></div>
+                            </div>
+                            <div class="sop-step">
+                                <div class="sop-step-num">2</div>
+                                <div class="sop-step-content">
+                                    <h6>Click the "Execute" Button</h6>
+                                    <p>The system validates all inputs, then automatically:</p>
+                                    <ol class="small">
+                                        <li>Launches SAP Logon application (waits 3 seconds)</li>
+                                        <li>Attaches to SAP GUI via COM (up to 3 retry attempts)</li>
+                                        <li>Logs in with provided SAP credentials</li>
+                                        <li>Navigates to the required SAP transaction</li>
+                                        <li>Captures screenshots at each defined step</li>
+                                        <li>Saves evidence as a Word document</li>
+                                        <li>Records Green/Red status in monthly CSV</li>
+                                    </ol>
+                                    <div class="screenshot-container mt-3">
+                                        <div class="screenshot-header">
+                                            <i class="bi bi-camera me-2"></i>
+                                            <span>SAP GUI Automation in Progress</span>
+                                            <span class="ms-auto text-muted small">Figure 3-1</span>
+                                        </div>
+                                        <div class="screenshot-body">
+                                            <img src="img/placeholder-execute.png"
+                                                 alt="SAP GUI Execute Control"
+                                                 class="screenshot-img"
+                                                 loading="lazy"
+                                                 onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+                                            <div class="screenshot-missing" style="display:none">
+                                                <i class="bi bi-image-alt"></i>
+                                                <div><strong>Screenshot not found</strong><br><small>Expected: <code>img/placeholder-execute.png</code></small></div>
+                                            </div>
+                                        </div>
+                                        <div class="screenshot-caption">Figure 3-1: SAP GUI scripting executing an ITGC control — Word document open with step descriptions and screenshots</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="sop-step sop-step-success">
+                                <div class="sop-step-num"><i class="bi bi-check-lg"></i></div>
+                                <div class="sop-step-content"><h6>Review Output</h6><p>The Word report saves to the folder path shown in the Report Duration section. Click the <i class="bi bi-folder2-open"></i> folder icon to open the output directory directly.</p></div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- =============================================
+                         SOP-04: All Controls
+                         ============================================= -->
+                    <section id="sop-4" class="doc-section sop-section" data-aos="fade-up">
+                        <div class="sop-badge">SOP-04</div>
+                        <h2 class="doc-section-title">Execute All Controls (Batch Mode)</h2>
+                        <div class="sop-info-row">
+                            <div><strong>Purpose:</strong> Run all 15 active ITGC controls in one session</div>
+                            <div><strong>Estimated Time:</strong> 30–60 minutes</div>
+                        </div>
+                        <div class="sop-steps">
+                            <div class="sop-step"><div class="sop-step-num">1</div><div class="sop-step-content"><h6>Set Execution Type to "All Controls"</h6><p>The ITGC Control dropdown becomes disabled and auto-populated with all active controls. The system iterates each in sequence.</p></div></div>
+                            <div class="sop-step"><div class="sop-step-num">2</div><div class="sop-step-content"><h6>Configure SAP Credentials and Date Range</h6><p>Same as SOP-02. Ensure the SAP account has authorization for all transactions used across all controls.</p></div></div>
+                            <div class="sop-step"><div class="sop-step-num">3</div><div class="sop-step-content"><h6>Click Execute</h6><p>The system iterates through each control. Failed controls are logged with full stack trace but execution continues with the next control.</p></div></div>
+                            <div class="sop-step sop-step-success"><div class="sop-step-num"><i class="bi bi-check-lg"></i></div><div class="sop-step-content"><h6>Completion</h6><p>A dialog confirms all controls executed. Individual Word reports are saved in control-specific subfolders under the reporting month directory.</p></div></div>
+                        </div>
+                    </section>
+
+                    <!-- =============================================
+                         SOP-05: Generate Report
+                         ============================================= -->
+                    <section id="sop-5" class="doc-section sop-section" data-aos="fade-up">
+                        <div class="sop-badge">SOP-05</div>
+                        <h2 class="doc-section-title">Generate Monthly Report</h2>
+                        <div class="sop-info-row">
+                            <div><strong>Purpose:</strong> Create consolidated monthly ITGC audit Word report</div>
+                            <div><strong>Output:</strong> Professional Word document</div>
+                        </div>
+                        <div class="sop-steps">
+                            <div class="sop-step"><div class="sop-step-num">1</div><div class="sop-step-content"><h6>Set Date Range</h6><p>Select the reporting month using the From/To date pickers. The Report Month label must show a valid value (not "Invalid date").</p></div></div>
+                            <div class="sop-step">
+                                <div class="sop-step-num">2</div>
+                                <div class="sop-step-content">
+                                    <h6>Click "Generate Report"</h6>
+                                    <p>The system reads <code>ITGC_Audit_Comments_{Month}.csv</code> and generates a Word report with these sections:</p>
+                                    <ol class="small">
+                                        <li>Cover image (cover.png)</li>
+                                        <li>Document control table (Client, Prepared/Reviewed/Approved By)</li>
+                                        <li>Summary dashboard (Total, Green count, Red count)</li>
+                                        <li>Detailed records table (6 columns, color-coded by status)</li>
+                                        <li>Action summary grouped by Control ID and System</li>
+                                    </ol>
+                                    <div class="screenshot-container mt-3">
+                                        <div class="screenshot-header">
+                                            <i class="bi bi-camera me-2"></i>
+                                            <span>Generated Monthly ITGC Audit Report</span>
+                                            <span class="ms-auto text-muted small">Figure 5-1</span>
+                                        </div>
+                                        <div class="screenshot-body">
+                                            <img src="img/placeholder-report.png"
+                                                 alt="Monthly Report Output"
+                                                 class="screenshot-img"
+                                                 loading="lazy"
+                                                 onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+                                            <div class="screenshot-missing" style="display:none">
+                                                <i class="bi bi-image-alt"></i>
+                                                <div><strong>Screenshot not found</strong><br><small>Expected: <code>img/placeholder-report.png</code></small></div>
+                                            </div>
+                                        </div>
+                                        <div class="screenshot-caption">Figure 5-1: Generated Word report showing summary dashboard with Green/Red status counts and detailed control records</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="sop-step sop-step-success"><div class="sop-step-num"><i class="bi bi-check-lg"></i></div><div class="sop-step-content"><h6>Complete and Distribute</h6><p>Fill in Client, Prepared By, Reviewed By, and Approved By fields in the Word document. Save with appropriate version name and distribute per your organisation's process.</p></div></div>
+                        </div>
+                    </section>
+
+                    <!-- =============================================
+                         SOP-06: RFC Setup
+                         ============================================= -->
+                    <section id="sop-6" class="doc-section sop-section" data-aos="fade-up">
+                        <div class="sop-badge">SOP-06</div>
+                        <h2 class="doc-section-title">RFC System Setup</h2>
+                        <div class="sop-info-row">
+                            <div><strong>Purpose:</strong> Configure SAP RFC connections for Housekeeping analysis</div>
+                            <div><strong>Tab:</strong> Housekeeping → RFC Settings button</div>
+                        </div>
+                        <div class="sop-steps">
+                            <div class="sop-step"><div class="sop-step-num">1</div><div class="sop-step-content"><h6>Navigate to Housekeeping Tab</h6><p>Click the <strong>Housekeeping</strong> tab, then click the <strong>RFC Setting</strong> button in the Menu group.</p></div></div>
+                            <div class="sop-step"><div class="sop-step-num">2</div><div class="sop-step-content"><h6>Add New SAP System</h6><p>Click <strong>Add</strong> and fill in all required fields:</p>
+                                <div class="table-responsive"><table class="table table-sm table-bordered doc-table"><tbody>
+                                    <tr><td width="35%"><strong>System Name</strong></td><td>Friendly name (e.g., "PRD — Production")</td></tr>
+                                    <tr><td><strong>App Server Host</strong></td><td>SAP application server hostname or IP</td></tr>
+                                    <tr><td><strong>System Number</strong></td><td>2-digit system number (e.g., "00")</td></tr>
+                                    <tr><td><strong>Client</strong></td><td>3-digit client (e.g., "100")</td></tr>
+                                    <tr><td><strong>RFC User</strong></td><td>RFC-enabled SAP user (read-only is sufficient)</td></tr>
+                                    <tr><td><strong>Password</strong></td><td>User password (encrypted via DPAPI on save)</td></tr>
+                                    <tr><td><strong>Language</strong></td><td>EN</td></tr>
+                                </tbody></table></div>
+                            </div></div>
+                            <div class="sop-step"><div class="sop-step-num">3</div><div class="sop-step-content"><h6>Test Connection</h6><p>Click <strong>Test Connection</strong>. A loading dialog appears while pinging the RFC destination. A success/failure message confirms connectivity.</p></div></div>
+                            <div class="sop-step">
+                                <div class="sop-step-num">4</div>
+                                <div class="sop-step-content">
+                                    <h6>Save — Password Automatically Encrypted</h6>
+                                    <p>Click <strong>Save</strong>. The password is encrypted using DPAPI (<code>ProtectedData.Protect</code> with <code>CurrentUser</code> scope) before writing to SQLite. The status grid updates with Active/Inactive ping results.</p>
+                                    <div class="screenshot-container mt-3">
+                                        <div class="screenshot-header">
+                                            <i class="bi bi-camera me-2"></i>
+                                            <span>RFC Settings Form — System Status Grid</span>
+                                            <span class="ms-auto text-muted small">Figure 6-1</span>
+                                        </div>
+                                        <div class="screenshot-body">
+                                            <img src="img/placeholder-rfc.png"
+                                                 alt="RFC Settings Form"
+                                                 class="screenshot-img"
+                                                 loading="lazy"
+                                                 onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+                                            <div class="screenshot-missing" style="display:none">
+                                                <i class="bi bi-image-alt"></i>
+                                                <div><strong>Screenshot not found</strong><br><small>Expected: <code>img/placeholder-rfc.png</code></small></div>
+                                            </div>
+                                        </div>
+                                        <div class="screenshot-caption">Figure 6-1: RFC Settings Form showing configured systems with Active (green) / Inactive (red) ping status</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- =============================================
+                         SOP-07: Inactivity Analysis
+                         ============================================= -->
+                    <section id="sop-7" class="doc-section sop-section" data-aos="fade-up">
+                        <div class="sop-badge">SOP-07</div>
+                        <h2 class="doc-section-title">User Inactivity Analysis</h2>
+                        <div class="sop-info-row">
+                            <div><strong>Purpose:</strong> Identify inactive SAP user accounts via RFC</div>
+                            <div><strong>Tab:</strong> Housekeeping</div>
+                        </div>
+                        <div class="sop-steps">
+                            <div class="sop-step"><div class="sop-step-num">1</div><div class="sop-step-content"><h6>Select SAP System</h6><p>Choose a configured RFC system from the <strong>SAP System</strong> dropdown. Only systems added via SOP-06 appear here.</p></div></div>
+                            <div class="sop-step"><div class="sop-step-num">2</div><div class="sop-step-content"><h6>Configure Filters</h6>
+                                <div class="table-responsive"><table class="table table-sm table-bordered doc-table"><tbody>
+                                    <tr><td width="35%"><strong>Target Date</strong></td><td>Users with last login before this date are flagged Inactive</td></tr>
+                                    <tr><td><strong>User Types</strong></td><td>Select: Dialog (A), Service (S), Background/Comm (C), System (B)</td></tr>
+                                    <tr><td><strong>Exclude Locked</strong></td><td>Check to exclude already-locked users from results</td></tr>
+                                    <tr><td><strong>Validity</strong></td><td>Valid users (no expiry / future expiry), Invalid users (expired), or both</td></tr>
+                                    <tr><td><strong>Creation Filter Days</strong></td><td>Skip users created within N days (default: 15). Prevents flagging new accounts.</td></tr>
+                                    <tr><td><strong>Rows to Display</strong></td><td>Rows per page (default: 20)</td></tr>
+                                </tbody></table></div>
+                            </div></div>
+                            <div class="sop-step"><div class="sop-step-num">3</div><div class="sop-step-content"><h6>Click Execute</h6><p>The system: pings the SAP server, fetches <code class="glossary-term" data-term="USR02">USR02</code> data via <code class="glossary-term" data-term="RFC">RFC_READ_TABLE</code>, applies all filters, and displays paginated results.</p></div></div>
+                            <div class="sop-step">
+                                <div class="sop-step-num">4</div>
+                                <div class="sop-step-content">
+                                    <h6>Review Results</h6>
+                                    <p>Each row shows: Username, Created On, Valid To, Last Login, User Group, User Type, Lock Status, Last Password Change, Active/Inactive status.</p>
+                                    <div class="screenshot-container mt-3">
+                                        <div class="screenshot-header">
+                                            <i class="bi bi-camera me-2"></i>
+                                            <span>Housekeeping Tab — User Inactivity Results</span>
+                                            <span class="ms-auto text-muted small">Figure 7-1</span>
+                                        </div>
+                                        <div class="screenshot-body">
+                                            <img src="img/placeholder-housekeeping.png"
+                                                 alt="User Inactivity Analysis Results"
+                                                 class="screenshot-img"
+                                                 loading="lazy"
+                                                 onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+                                            <div class="screenshot-missing" style="display:none">
+                                                <i class="bi bi-image-alt"></i>
+                                                <div><strong>Screenshot not found</strong><br><small>Expected: <code>img/placeholder-housekeeping.png</code></small></div>
+                                            </div>
+                                        </div>
+                                        <div class="screenshot-caption">Figure 7-1: Housekeeping analysis results showing paginated user list with Active/Inactive status and action buttons</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- =============================================
+                         SOP-08: Multi-System
+                         ============================================= -->
+                    <section id="sop-8" class="doc-section sop-section" data-aos="fade-up">
+                        <div class="sop-badge">SOP-08</div>
+                        <h2 class="doc-section-title">Multi-System Analysis</h2>
+                        <div class="sop-info-row">
+                            <div><strong>Purpose:</strong> Compare user activity across multiple SAP systems</div>
+                            <div><strong>Minimum:</strong> 2 configured RFC systems</div>
+                        </div>
+                        <div class="sop-steps">
+                            <div class="sop-step"><div class="sop-step-num">1</div><div class="sop-step-content"><h6>Select "Multi System Analysis"</h6><p>Choose <strong>── Multi System Analysis ──</strong> from the system dropdown. This option appears automatically when 2+ systems are configured.</p></div></div>
+                            <div class="sop-step">
+                                <div class="sop-step-num">2</div>
+                                <div class="sop-step-content">
+                                    <h6>Select Systems in the Selection Dialog</h6>
+                                    <p>A borderless, DPI-aware selection form appears showing all configured systems as cards. Check at least 2 systems, then click <strong>"Analyze N Systems"</strong>.</p>
+                                    <div class="screenshot-container mt-3">
+                                        <div class="screenshot-header">
+                                            <i class="bi bi-camera me-2"></i>
+                                            <span>Multi-System Selection Form</span>
+                                            <span class="ms-auto text-muted small">Figure 8-1</span>
+                                        </div>
+                                        <div class="screenshot-body">
+                                            <img src="img/placeholder-multisystem.png"
+                                                 alt="Multi-System Selection Dialog"
+                                                 class="screenshot-img"
+                                                 loading="lazy"
+                                                 onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+                                            <div class="screenshot-missing" style="display:none">
+                                                <i class="bi bi-image-alt"></i>
+                                                <div><strong>Screenshot not found</strong><br><small>Expected: <code>img/placeholder-multisystem.png</code></small></div>
+                                            </div>
+                                        </div>
+                                        <div class="screenshot-caption">Figure 8-1: Multi-System Selection form with system cards, Select All toggle, and dynamic "Analyze N Systems" button</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="sop-step sop-step-success"><div class="sop-step-num"><i class="bi bi-check-lg"></i></div><div class="sop-step-content"><h6>Review Cross-System Results</h6><p>The grid shows per-system login columns, <em>Cross-System Status</em>, and <em>Systems Active In</em> for each user. Export to CSV or Excel for full analysis.</p></div></div>
+                        </div>
+                    </section>
+
+                    <!-- =============================================
+                         SOP-09: Lock/Manage Users
+                         ============================================= -->
+                    <section id="sop-9" class="doc-section sop-section" data-aos="fade-up">
+                        <div class="sop-badge">SOP-09</div>
+                        <h2 class="doc-section-title">Lock / Manage Users</h2>
+                        <div class="sop-info-row">
+                            <div><strong>Purpose:</strong> Lock users, change validity, or reassign user groups in SAP</div>
+                            <div><strong>Requires:</strong> SOP-07 analysis completed</div>
+                        </div>
+                        <div class="sop-steps">
+                            <div class="sop-step"><div class="sop-step-num">1</div><div class="sop-step-content"><h6>Select Users in the Result Grid</h6><p>After running SOP-07, select one or more rows in the result grid. Multi-select by holding Ctrl or clicking multiple rows.</p></div></div>
+                            <div class="sop-step"><div class="sop-step-num">2</div><div class="sop-step-content">
+                                <h6>Choose Action from the Action Panel</h6>
+                                <div class="row g-2 mt-1">
+                                    <div class="col-md-4"><div class="prereq-item p-2"><div class="prereq-check"><i class="bi bi-lock-fill text-danger"></i></div><div class="prereq-content"><strong class="small">🔒 Lock User</strong><p class="small mb-0">Calls <code class="glossary-term" data-term="BAPI">BAPI_USER_LOCK</code> + commit</p></div></div></div>
+                                    <div class="col-md-4"><div class="prereq-item p-2"><div class="prereq-check"><i class="bi bi-calendar-x text-warning"></i></div><div class="prereq-content"><strong class="small">Change Validity</strong><p class="small mb-0">Sets GLTGB to target date</p></div></div></div>
+                                    <div class="col-md-4"><div class="prereq-item p-2"><div class="prereq-check"><i class="bi bi-people text-info"></i></div><div class="prereq-content"><strong class="small">Change User Group</strong><p class="small mb-0">Moves users to INACTIVE group</p></div></div></div>
+                                </div>
+                            </div></div>
+                            <div class="sop-step sop-step-success"><div class="sop-step-num"><i class="bi bi-check-lg"></i></div><div class="sop-step-content"><h6>Confirm and Review Results</h6><p>Confirm the action dialog. A summary shows success/failure for each user. The analysis automatically re-runs to reflect the changes.</p></div></div>
+                        </div>
+                        <div class="doc-info-box info-box-red mt-3">
+                            <div class="info-box-icon"><i class="bi bi-exclamation-octagon-fill"></i></div>
+                            <div><h6 class="mb-1">⚠️ Irreversible Actions</h6><p class="mb-0">User lock and group changes are applied directly to SAP via BAPI calls. Always confirm the user list carefully before proceeding. Lock User is not available in Multi-System Analysis mode.</p></div>
+                        </div>
+                    </section>
+
+                    <!-- =============================================
+                         SOP-10: View Logs
+                         ============================================= -->
+                    <section id="sop-10" class="doc-section sop-section" data-aos="fade-up">
+                        <div class="sop-badge">SOP-10</div>
+                        <h2 class="doc-section-title">View & Filter Logs</h2>
+                        <div class="sop-info-row">
+                            <div><strong>Purpose:</strong> Monitor execution history, debug issues</div>
+                            <div><strong>Tab:</strong> Logs</div>
+                        </div>
+                        <div class="sop-steps">
+                            <div class="sop-step"><div class="sop-step-num">1</div><div class="sop-step-content"><h6>Select Log File</h6><p>Choose a log file from the dropdown. Files are sorted newest first. Log files are daily: <code>SAPExecutionLog - USERNAME YYYY-MM-DD.txt</code></p></div></div>
+                            <div class="sop-step"><div class="sop-step-num">2</div><div class="sop-step-content"><h6>Filter by Keyword</h6><p>Type in the filter box to search across all columns in real-time. Rows are filtered as you type. Try "ERROR", "ITGC01", "Login", "Failed".</p></div></div>
+                            <div class="sop-step">
+                                <div class="sop-step-num">3</div>
+                                <div class="sop-step-content">
+                                    <h6>View Full Details</h6>
+                                    <p>Double-click any row to see a full detail popup including the complete message, timestamp, user, status, and any stack trace for exceptions.</p>
+                                    <div class="screenshot-container mt-3">
+                                        <div class="screenshot-header">
+                                            <i class="bi bi-camera me-2"></i>
+                                            <span>Log Viewer — Filtered Entries</span>
+                                            <span class="ms-auto text-muted small">Figure 10-1</span>
+                                        </div>
+                                        <div class="screenshot-body">
+                                            <img src="img/placeholder-logs.png"
+                                                 alt="Log Viewer"
+                                                 class="screenshot-img"
+                                                 loading="lazy"
+                                                 onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+                                            <div class="screenshot-missing" style="display:none">
+                                                <i class="bi bi-image-alt"></i>
+                                                <div><strong>Screenshot not found</strong><br><small>Expected: <code>img/placeholder-logs.png</code></small></div>
+                                            </div>
+                                        </div>
+                                        <div class="screenshot-caption">Figure 10-1: Log Viewer with color-coded rows — green for SUCCESS, red for ERROR, yellow for EXCEPTION</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- =============================================
+                         SOP-11: Appendix
+                         ============================================= -->
+                    <section id="sop-11" class="doc-section sop-section" data-aos="fade-up">
+                        <div class="sop-badge">SOP-11</div>
+                        <h2 class="doc-section-title">Edit ITGC Appendix</h2>
+                        <div class="sop-info-row">
+                            <div><strong>Purpose:</strong> View and edit ITGC control definitions, descriptions, risks, and notes</div>
+                            <div><strong>Tab:</strong> Appendix</div>
+                        </div>
+                        <div class="sop-steps">
+                            <div class="sop-step"><div class="sop-step-num">1</div><div class="sop-step-content"><h6>Click "Edit" Button</h6><p>Switches the DataGridView to editable mode. The <strong>Save</strong> and <strong>Revert</strong> buttons become visible. Edit mode is indicated in the status bar.</p></div></div>
+                            <div class="sop-step"><div class="sop-step-num">2</div><div class="sop-step-content"><h6>Modify Data</h6><p>Double-click any cell to edit: Control Ref, Control Definition, Description, or Risk. Click the <strong>Control Ref column</strong> cell to open/close the associated action note popup.</p>
+                                <div class="screenshot-container mt-3">
+                                    <div class="screenshot-header">
+                                        <i class="bi bi-camera me-2"></i>
+                                        <span>Appendix Tab — Edit Mode with Note Popup</span>
+                                        <span class="ms-auto text-muted small">Figure 11-1</span>
+                                    </div>
+                                    <div class="screenshot-body">
+                                        <img src="img/placeholder-appendix.png"
+                                             alt="Appendix Tab Edit Mode"
+                                             class="screenshot-img"
+                                             loading="lazy"
+                                             onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+                                        <div class="screenshot-missing" style="display:none">
+                                            <i class="bi bi-image-alt"></i>
+                                            <div><strong>Screenshot not found</strong><br><small>Expected: <code>img/placeholder-appendix.png</code></small></div>
+                                        </div>
+                                    </div>
+                                    <div class="screenshot-caption">Figure 11-1: Appendix tab in edit mode showing Save/Revert buttons and control action note popup</div>
+                                </div>
+                            </div></div>
+                            <div class="sop-step sop-step-success"><div class="sop-step-num"><i class="bi bi-check-lg"></i></div><div class="sop-step-content"><h6>Save Changes (Ctrl+S)</h6><p>Click <strong>Save</strong> or press <kbd>Ctrl+S</kbd>. A timestamped backup is automatically created in the <code>Backup/</code> folder before any changes are written to <code>ITGCControls.xml</code>. If no changes are detected, save is skipped.</p></div></div>
+                        </div>
+                    </section>
+
+                    <!-- =============================================
+                         SOP-12: Settings
+                         ============================================= -->
+                    <section id="sop-12" class="doc-section sop-section" data-aos="fade-up">
+                        <div class="sop-badge">SOP-12</div>
+                        <h2 class="doc-section-title">Update Application Settings</h2>
+                        <div class="sop-info-row">
+                            <div><strong>Purpose:</strong> Configure paths, timing, and approved user lists</div>
+                            <div><strong>Tab:</strong> Settings</div>
+                        </div>
+                        <div class="sop-steps">
+                            <div class="sop-step"><div class="sop-step-num">1</div><div class="sop-step-content"><h6>Navigate to Settings Tab</h6><p>Click the <strong>Settings</strong> tab. The <code>ctrlGeneral</code> UserControl loads with all configurable parameters.</p></div></div>
+                            <div class="sop-step">
+                                <div class="sop-step-num">2</div>
+                                <div class="sop-step-content">
+                                    <h6>Configure All Required Parameters</h6>
+                                    <div class="table-responsive"><table class="table table-sm table-bordered doc-table"><thead><tr><th>Setting</th><th>Description</th><th>Example</th></tr></thead><tbody>
+                                        <tr><td><code>Start Time</code></td><td>Report start time for SAP queries</td><td><code>00:00:00</code></td></tr>
+                                        <tr><td><code>End Time</code></td><td>Report end time for SAP queries</td><td><code>23:59:59</code></td></tr>
+                                        <tr><td><code>SAP GUI XML</code></td><td>Click to select your saplogon.xml file</td><td><code>.\saplogon.xml</code></td></tr>
+                                        <tr><td><code>ITGC Control XML</code></td><td>Click to select ITGCControls.xml</td><td><code>.\ITGCControls.xml</code></td></tr>
+                                        <tr><td><code>SAP Logon Path</code></td><td>Click to select saplogon.exe</td><td><code>C:\...\saplogon.exe</code></td></tr>
+                                        <tr><td><code>Download Destination</code></td><td>Click to select output root folder</td><td><code>C:\Users\...\Downloads</code></td></tr>
+                                        <tr><td><code>ITGC01 OSS ID</code></td><td>SAP OSS user ID to check in ITGC01</td><td><code>SAPSUPPORT</code></td></tr>
+                                        <tr><td><code>ITGC04 T-Code List</code></td><td>Comma-separated critical transaction codes</td><td><code>SM30,SM31,SE16</code></td></tr>
+                                    </tbody></table></div>
+                                    <div class="screenshot-container mt-3">
+                                        <div class="screenshot-header">
+                                            <i class="bi bi-camera me-2"></i>
+                                            <span>Settings Tab — Application Configuration</span>
+                                            <span class="ms-auto text-muted small">Figure 12-1</span>
+                                        </div>
+                                        <div class="screenshot-body">
+                                            <img src="img/placeholder-settings.png"
+                                                 alt="Settings Tab"
+                                                 class="screenshot-img"
+                                                 loading="lazy"
+                                                 onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+                                            <div class="screenshot-missing" style="display:none">
+                                                <i class="bi bi-image-alt"></i>
+                                                <div><strong>Screenshot not found</strong><br><small>Expected: <code>img/placeholder-settings.png</code></small></div>
+                                            </div>
+                                        </div>
+                                        <div class="screenshot-caption">Figure 12-1: Settings tab showing all configurable parameters including paths, timing, and approved user lists per control</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="sop-step"><div class="sop-step-num">3</div><div class="sop-step-content"><h6>Click Save</h6><p>All settings are validated (time format HH:mm:ss, required fields) and persisted to <code>My.Settings</code>. A confirmation dialog confirms success.</p></div></div>
+                            <div class="sop-step"><div class="sop-step-num">4</div><div class="sop-step-content"><h6>Revert to Defaults (Optional)</h6><p>Click <strong>Revert Defaults</strong> to reset all settings to factory defaults via <code>My.Settings.Reset()</code>. This cannot be undone.</p></div></div>
+                        </div>
+                    </section>
+
+                    <!-- Revision History -->
+                    <section class="doc-section" data-aos="fade-up">
+                        <h2 class="doc-section-title">Revision History</h2>
+                        <div class="table-responsive">
+                            <table class="table table-bordered doc-table">
+                                <thead><tr><th>Version</th><th>Date</th><th>Author</th><th>Changes</th></tr></thead>
+                                <tbody>
+                                    <tr><td>2.0</td><td>July 2025</td><td>Void Automation</td><td>Complete rewrite — added Prerequisites, SAP Security Settings, real screenshots, 12 SOPs</td></tr>
+                                    <tr><td>1.0</td><td>January 2025</td><td>Void Automation</td><td>Initial release</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </section>
+
+                </div><!-- /doc-content -->
+            </div><!-- /col -->
+        </div><!-- /row -->
+    </div><!-- /container-fluid -->
+
+    <!-- Footer -->
+    <footer class="footer-section mt-5">
+        <div class="container">
+            <div class="row align-items-center py-4">
+                <div class="col-md-6">
+                    <div class="d-flex align-items-center gap-2">
+                        <div class="brand-icon-sm"><i class="bi bi-shield-check"></i></div>
+                        <div><strong>AuditX</strong> Standard Operating Procedures<br><small class="text-muted">&copy; 2025 Void Automation</small></div>
+                    </div>
+                </div>
+                <div class="col-md-6 text-md-end mt-3 mt-md-0">
+                    <a href="index.html" class="footer-link">Home</a>
+                    <a href="technicaldoc.html" class="footer-link">Technical Doc</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <button class="scroll-top-btn" id="scrollTopBtn"><i class="bi bi-arrow-up-short"></i></button>
+
+    <div class="modal fade" id="pdfModal" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered modal-sm">
+            <div class="modal-content text-center p-4">
+                <div class="spinner-border text-primary mx-auto mb-3"></div>
+                <h6>Generating PDF...</h6><p class="text-muted small mb-0">Please wait.</p>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/fuse.js@7.0.0/dist/fuse.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
