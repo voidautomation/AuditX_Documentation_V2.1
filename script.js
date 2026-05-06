@@ -703,54 +703,109 @@ function registerServiceWorker() {
 }
 
 // ============================================================
-// PDF EXPORT
+// PDF EXPORT — Current Window Native Print (AOS Fixed)
 // ============================================================
 function exportPageAsPDF(fileName) {
-    const modal = document.getElementById('pdfModal');
-    let bsModal = null;
-    if (modal) { bsModal = new bootstrap.Modal(modal); bsModal.show(); }
+    const source = document.getElementById('printableArea');
+    if (!source) {
+        alert('Nothing to export.');
+        return;
+    }
 
-    const element = document.getElementById('printableArea') || document.querySelector('.doc-content') || document.body;
-    const clone = element.cloneNode(true);
+    // 1. Show loading modal briefly
+    const pdfModalEl = document.getElementById('pdfModal');
+    let pdfModalInstance = null;
+    if (pdfModalEl) {
+        pdfModalInstance = bootstrap.Modal.getOrCreateInstance(pdfModalEl);
+        pdfModalInstance.show();
+    }
 
-    clone.querySelectorAll('button, .btn, .scroll-top-btn, .control-filter-tabs, .video-thumbnail').forEach(el => el.style.display = 'none');
+    // 2. Save current theme and force Light Mode 
+    const currentTheme = document.documentElement.getAttribute('data-bs-theme');
+    document.documentElement.setAttribute('data-bs-theme', 'light');
 
-    const container = document.createElement('div');
-    container.style.cssText = 'position:absolute;left:-9999px;top:0;width:210mm;padding:12mm;background:white;color:#1a1a1a;font-family:Inter,sans-serif;font-size:10pt;';
-    container.innerHTML = `
-        <div style="display:flex;justify-content:space-between;align-items:center;padding-bottom:12px;border-bottom:3px solid #0078D4;margin-bottom:20px;">
-            <div><div style="font-size:22px;font-weight:800;color:#0078D4;">AuditX</div>
-            <div style="font-size:11px;color:#666;">ITGC Audit Automation Framework</div></div>
-            <div style="text-align:right;font-size:10px;color:#666;">
-                <div>Generated: ${new Date().toLocaleString()}</div>
-                <div>Document: ${fileName || 'AuditX Documentation'}</div>
-            </div>
-        </div>`;
-    container.appendChild(clone);
-    container.innerHTML += `
-        <div style="margin-top:30px;padding-top:12px;border-top:1px solid #ddd;text-align:center;">
-            <div style="font-size:9px;color:#aaa;">&copy; 2025 Void Automation — AuditX Documentation Portal — CONFIDENTIAL</div>
-        </div>`;
-
-    document.body.appendChild(container);
-
-    html2pdf().set({
-        margin: [12, 12, 12, 12],
-        filename: `${fileName || 'AuditX'}_${new Date().toISOString().split('T')[0]}.pdf`,
-        image: { type: 'jpeg', quality: 0.92 },
-        html2canvas: { scale: 2, useCORS: true, logging: false, scrollY: 0 },
-        jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
-        pagebreak: { mode: ['avoid-all', 'css', 'legacy'] }
-    }).from(container).save().then(() => {
-        document.body.removeChild(container);
-        if (bsModal) setTimeout(() => bsModal.hide(), 500);
-    }).catch(() => {
-        document.body.removeChild(container);
-        if (bsModal) bsModal.hide();
-        alert('PDF failed. Use Ctrl+P to print instead.');
+    // 3. Fix code blocks with horizontal scroll (forces text to wrap for printing)
+    const codeBlocks = document.querySelectorAll('pre');
+    const originalStyles = [];
+    codeBlocks.forEach((pre, index) => {
+        originalStyles[index] = pre.style.cssText;
+        pre.style.whiteSpace = 'pre-wrap';
+        pre.style.wordBreak = 'break-word';
+        pre.style.overflowX = 'hidden';
     });
-}
 
+    // 4. Inject temporary strict print stylesheet
+    const printStyle = document.createElement('style');
+    printStyle.id = 'temp-print-style';
+    printStyle.innerHTML = `
+        @media print {
+            @page { margin: 15mm; size: A4; }
+            body { background: #fff !important; color: #1a1a1a !important; }
+            
+            /* --- CRITICAL FIX: FORCE AOS ELEMENTS TO BE VISIBLE --- */
+            [data-aos] {
+                opacity: 1 !important;
+                transform: translate(0,0) scale(1) !important;
+                transition: none !important;
+                animation: none !important;
+            }
+            
+            /* Hide UI elements completely */
+            #mainNav, .doc-sidebar, .doc-hero, .footer-section, .cta-section, 
+            .scroll-top-btn, #pdfModal, .modal-backdrop, .theme-toggle, 
+            .search-trigger, .control-filter-tabs, .reading-progress { 
+                display: none !important; 
+            }
+            
+            /* Override Bootstrap grid to force main content to full width */
+            .col-lg-9, #printableArea { 
+                width: 100% !important; 
+                max-width: 100% !important; 
+                flex: 0 0 100% !important; 
+                padding: 0 !important; 
+                margin: 0 !important;
+            }
+            .doc-content { max-width: 100% !important; padding: 0 !important; }
+            
+            /* Prevent awkward page breaks in the middle of important elements */
+            .doc-section { border-bottom: none !important; }
+            .sop-step, .doc-info-box, .screenshot-container, .code-block, 
+            table, tr, .prereq-item, .tech-detail-card, .glossary-card, .sop-header-card { 
+                page-break-inside: avoid !important; 
+                break-inside: avoid !important; 
+            }
+            h1, h2, h3, h4, h5, h6 { 
+                page-break-after: avoid; 
+                break-after: avoid; 
+            }
+            
+            /* Ensure background colors print (badges, info boxes, row shading) */
+            * { 
+                -webkit-print-color-adjust: exact !important; 
+                print-color-adjust: exact !important; 
+            }
+        }
+    `;
+    document.head.appendChild(printStyle);
+
+    // 5. Trigger native print and cleanup
+    setTimeout(() => {
+        if (pdfModalInstance) pdfModalInstance.hide();
+        
+        // This triggers the browser's high-quality "Save as PDF" engine
+        window.print(); 
+        
+        // Cleanup: Restore original theme, code blocks, and remove temporary CSS
+        setTimeout(() => {
+            document.documentElement.setAttribute('data-bs-theme', currentTheme);
+            codeBlocks.forEach((pre, index) => {
+                pre.style.cssText = originalStyles[index];
+            });
+            const styleElement = document.getElementById('temp-print-style');
+            if (styleElement) styleElement.remove();
+        }, 500);
+    }, 800); // 800ms gives the browser enough time to reflow the DOM
+}
 // ============================================================
 // PARTICLES (Hero only)
 // ============================================================
